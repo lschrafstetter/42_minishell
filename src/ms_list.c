@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/29 11:19:58 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/29 16:53:43 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lst_env	*ls_new(char *name, char *value)
 
 void	ls_addfront(t_lst_env **lst, t_lst_env *new)
 {
-	if (!new || !(*lst))
+	if (!new || !lst)
 		return ;
 	new->next = *lst;
 	*lst = new;
@@ -35,7 +35,7 @@ void	ls_addback(t_lst_env **lst, t_lst_env *new)
 {
 	t_lst_env	*temp;
 
-	if (!(lst))
+	if (!(*lst))
 	{
 		ls_addfront(lst, new);
 		return ;

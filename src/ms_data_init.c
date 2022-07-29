@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 11:26:23 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/29 18:08:13 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,20 @@ char	*get_env_name(char *env_line)
 	int		j;
 
 	i = 0;
-	while (*env_line)
+	while (env_line[i])
 	{
-		if (*env_line == '=')
+		if (env_line[i] == '=')
 			break ;
-		env_line++;
+		i++;
 	}
 	str = malloc(i + 1);
 	j = 0;
-	while (j < (i + 1))
+	while (j < i)
 	{
 		str[j] = env_line[j];
 		j++;
 	}
+	str[j] = '\0';
 	return (str);
 }
 
@@ -42,12 +43,11 @@ int	env_init(char **envp, t_data *data)
 	data->env = malloc(sizeof(t_lst_env **));
 	if (!(data->env))
 		return (1);
+	*(data->env) = NULL;
 	while (*envp)
 	{
-		printf("%s\n", *envp);
 		tmp_name = get_env_name(*envp);
 		ls_addback(data->env, (ls_new(tmp_name, getenv(tmp_name))));
-		printf("%s\n", *envp);
 		if (tmp_name)
 			free(tmp_name);
 		envp++;
@@ -63,5 +63,7 @@ t_data	*datastruct_init(char **envp)
 	if (!data)
 		return (NULL);
 	env_init(envp, data);
+	data->n_processes = 0;
+	data->exit_code = 0;
 	return (data);
 }
