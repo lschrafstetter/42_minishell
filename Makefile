@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
+#    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/07/28 13:09:12 by dfranke          ###   ########.fr        #
+#    Updated: 2022/07/29 11:13:19 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MYLIBS 		= libft/libft.a
 LIBS 		= -lreadline
 
 SRCS_PATH 	= ./src/
-SRCS_NAMES	= main signaling
+SRCS_NAMES	= main ms_signaling ms_list ms_data_init
 
 SRCS		= $(addprefix $(SRCS_PATH), $(SRC_NAMES))
 

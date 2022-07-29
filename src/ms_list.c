@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ms_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/28 14:13:31 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/07/29 11:19:58 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	ls_addfront(t_lst_env **lst, t_lst_env *new)
 	if (!new || !(*lst))
 		return ;
 	new->next = *lst;
-	lst = new;
+	*lst = new;
 }
 
-void    ls_addback(t_lst_env **lst, t_lst_env *new)
+void	ls_addback(t_lst_env **lst, t_lst_env *new)
 {
 	t_lst_env	*temp;
 
 	if (!(lst))
 	{
-	    ls_addfront(lst, new);
-	    return ;
+		ls_addfront(lst, new);
+		return ;
 	}
 	temp = *lst;
 	while (temp->next)
@@ -49,18 +49,18 @@ void    ls_addback(t_lst_env **lst, t_lst_env *new)
 
 static void	ls_clearnodes(t_lst_env **lst)
 {
-    if (lst)
-    {
-        ls_clearnodes(&(*lst)->next);
-        free(*lst);
-        *lst = NULL;
-    }
+	if (lst)
+	{
+		ls_clearnodes(&(*lst)->next);
+		free(*lst);
+		*lst = NULL;
+	}
 }
 
-void    ls_clear(t_lst_env **lst)
+void	ls_clear(t_lst_env **lst)
 {
-    if (lst)
-        ls_clearnodes(lst);
-    free(lst);
-    lst = NULL;
+	if (lst)
+		ls_clearnodes(lst);
+	free(lst);
+	lst = NULL;
 }
