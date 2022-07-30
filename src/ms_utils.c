@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 19:17:43 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 11:16:44 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ int	is_whitespace(int c)
 		c == '\r')
 		return (1);
 	return (0);
-}
-
-void	minishell_exit(int err, char *message)
-{
-	printf("%s", message);
-	exit(err);
 }
 
 int	is_history_command(char *str)

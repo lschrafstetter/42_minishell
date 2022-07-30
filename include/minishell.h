@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 19:07:54 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 11:32:16 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ char		*ms_getenv(t_data *data, char *name);
 
 /* UTILS */
 
-void		minishell_exit(int err, char *message);
+void		ms_quit(t_data *data);
+void		ms_exit(int err, char *message);
+void		data_free(t_data *data);
+void		free_str(char *str);
 int			is_whitespace(int c);
 int			is_history_command(char *str);
 char		*get_prompt(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 18:08:13 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 11:30:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,14 @@ t_data	*datastruct_init(char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	env_init(envp, data);
 	data->n_processes = 0;
 	data->exit_code = 0;
+	data->input = NULL;
+	data->prompt = NULL;
+	if (env_init(envp, data))
+	{
+		data_free(data);
+		return (NULL);
+	}
 	return (data);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_list.c                                          :+:      :+:    :+:   */
+/*   ms_lst_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/07/29 16:53:43 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 11:23:56 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ void	ls_addback(t_lst_env **lst, t_lst_env *new)
 
 static void	ls_clearnodes(t_lst_env **lst)
 {
-	if (lst)
+	if (*lst)
 	{
 		ls_clearnodes(&(*lst)->next);
+		if ((*lst)->name)
+			free((*lst)->name);
+		if ((*lst)->value)
+			free((*lst)->value);
 		free(*lst);
 		*lst = NULL;
 	}

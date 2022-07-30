@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 19:10:14 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 11:31:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 void	inputloop(t_data *data)
 {
+	rl_catch_signals = 0;
 	while (1)
 	{
 		data->prompt = get_prompt(data);
 		data->input = readline(data->prompt);
 		if (!(data->input))
-		{
-			write(1, "\n", 1);
-			exit(0);
-		}
+			ms_quit(data);
 		add_history(data->input);
 		if (is_history_command(data->input))
 			rl_clear_history();
-		free(data->input);
+		free_str(data->input);
+		free_str(data->prompt);
 	}
 }
 
@@ -36,11 +35,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argv;
 	if (argc > 1)
-		minishell_exit(1, "USAGE: <./minishell>\n");
-	//signalhandler_init();
+		ms_exit(1, "USAGE: <./minishell>\n");
+	signalhandler_init();
 	data = datastruct_init(envp);
 	if (!data)
-		minishell_exit(1, "Error initializing data struct\n");
+		ms_exit(1, "Error initializing data struct\n");
 	inputloop(data);
 	return (0);
 }
