@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 11:32:16 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/07/30 12:04:16 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ void		ls_clear(t_lst_env **lst);
 
 char		*ms_getenv(t_data *data, char *name);
 
+/* PARSING */
+
+int			input_parse(t_data *data);
+
+/* EXECUTING */
+
+int			input_execute(t_data *data);
+
 /* UTILS */
 
 void		ms_quit(t_data *data);
@@ -77,6 +85,6 @@ void		data_free(t_data *data);
 void		free_str(char *str);
 int			is_whitespace(int c);
 int			is_history_command(char *str);
-char		*get_prompt(t_data *data);
+char		*prompt_get(t_data *data);
 
 #endif

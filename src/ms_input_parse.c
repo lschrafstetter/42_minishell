@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_env.c                                           :+:      :+:    :+:   */
+/*   ms_input_parse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 12:05:24 by lschrafs         ###   ########.fr       */
+/*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
+/*   Updated: 2022/07/30 12:06:20 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *ms_getenv(t_data *data, char *name)
+int	input_parse(t_data *data)
 {
-	t_lst_env *temp;
-
-	temp = *(data->env);
-	while (temp)
-	{
-		if (ft_strncmp(temp->name, name, ft_strlen(name) + 1) == 0)
-			return (temp->value);
-		temp = temp->next;
-	}
-	return (NULL);
+	(void) data;
+	printf("Parsing [%s] into data!\n", data->input);
+	return (0);
 }

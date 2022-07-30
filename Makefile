@@ -6,20 +6,24 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/07/30 11:20:45 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/07/30 12:06:08 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= minishell
+NAME 		= 	minishell
 
-COMPILER 	= cc
-CFLAGS 		= -Wall -Wextra -Werror
+COMPILER 	= 	cc
+CFLAGS 		= 	-Wall -Wextra -Werror
 
-MYLIBS 		= libft/libft.a
-LIBS 		= -lreadline
+MYLIBS 		= 	libft/libft.a
+LIBS 		= 	-lreadline
 
-SRCS_PATH 	= ./src/
-SRCS_NAMES	= main ms_signaling ms_lst_str ms_data_init ms_utils ms_env ms_free_exit
+SRCS_PATH 	= 	./src/
+SRCS_NAMES	= 	main \
+				ms_signaling ms_data_init \
+				ms_input_parse ms_input_exec \
+				ms_lst_str ms_utils ms_free_exit \
+				ms_env 
 
 SRCS		= $(addprefix $(SRCS_PATH), $(SRC_NAMES))
 
