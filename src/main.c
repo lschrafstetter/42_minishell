@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 12:09:20 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/01 17:23:19 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	inputloop(t_data *data)
 		data->prompt = prompt_get(data);
 		data->input = readline(data->prompt);
 		if (!(data->input))
-			ms_quit(data);
+			ms_quit(data, 0);
 		add_history(data->input);
 		if (is_history_command(data->input))
 			rl_clear_history();
 		else
 		{
 			if (input_parse(data))
-				ms_quit(data);
+				ms_quit(data, 1);
 			if (input_execute(data))
-				ms_quit(data);
+				ms_quit(data, 1);
 		}
 		free_str(data->input);
 		free_str(data->prompt);

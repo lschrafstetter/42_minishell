@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 11:30:37 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:20:54 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	env_init(char **envp, t_data *data)
 {
 	char	*tmp_name;
 
-	data->env = malloc(sizeof(t_lst_env **));
-	if (!(data->env))
+	data->ls_env = malloc(sizeof(t_lst_env **));
+	if (!(data->ls_env))
 		return (1);
-	*(data->env) = NULL;
+	*(data->ls_env) = NULL;
 	while (*envp)
 	{
 		tmp_name = get_env_name(*envp);
-		ls_addback(data->env, (ls_new(tmp_name, getenv(tmp_name))));
+		ls_env_addback(data->ls_env, (ls_env_new(tmp_name, getenv(tmp_name))));
 		if (tmp_name)
 			free(tmp_name);
 		envp++;

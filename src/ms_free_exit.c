@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 11:29:41 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:28:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	data_free(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->env)
-		ls_clear(data->env);
+	if (data->ls_env)
+		ls_env_clear(data->ls_env);
 	if (data->input)
 		free_str(data->input);
 	if (data->prompt)
@@ -39,11 +39,8 @@ void	data_free(t_data *data)
 	data = NULL;
 }
 
-void	ms_quit(t_data *data)
+void	ms_quit(t_data *data, int err)
 {
-	int	exit_code;
-
-	exit_code = data->exit_code;
 	data_free(data);
-	ms_exit(exit_code, "\n");
+	ms_exit(err, "\n");
 }
