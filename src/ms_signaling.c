@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signaling.c                                        :+:      :+:    :+:   */
+/*   ms_signaling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:21:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/29 11:09:00 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:04:39 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(1, "^C\n", 3);
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();

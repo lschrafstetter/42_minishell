@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/01 14:13:53 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:24:22 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,19 @@ void	ls_str_clear(t_lst_str **lst)
 		ls_str_clearnodes(lst);
 	free(lst);
 	lst = NULL;
+}
+
+int	ls_str_len(t_lst_str **lst)
+{
+	t_lst_str	*temp;
+	int			i;
+
+	temp = *lst;
+	i = 0;
+	while (temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	return (i);
 }

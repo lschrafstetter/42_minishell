@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/07/30 11:59:31 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:01:41 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*prompt_get(t_data *data)
 		helper = ft_strjoin("minishell:~", ms_getenv(data, "PWD") + \
 							ft_strlen(ms_getenv(data, "HOME")));
 	else
-		helper = ft_strjoin("minishell:~", ms_getenv(data, "PWD"));
+		helper = ft_strjoin("minishell:", ms_getenv(data, "PWD"));
 	prompt = ft_strjoin(helper, "$ ");
 	free(helper);
 	return (prompt);

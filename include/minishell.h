@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/01 14:28:41 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:29:33 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,26 @@ typedef struct s_lst_str
 	char				*str;
 }	t_lst_str;
 
-typedef struct s_lst_processes
+typedef struct s_process
 {
 	int					fdin;
 	int					fdout;
 	char				**cmd;
 	char				*path;
 	struct s_data		*data;
-}	t_lst_processes;
+}	t_process;
 
 /* GENERAL DATA STRUCT */
 
 typedef struct s_data
 {
 	t_lst_env			**ls_env;
-	t_lst_processes		*processes;
+	t_process			*processes;
 	char				*input;
 	char				*prompt;
+	char				*infile;
+	char				*main;
+	char				*outfile;
 	int					n_processes;
 	int					exit_code;
 }	t_data;
@@ -75,6 +78,7 @@ t_lst_str	*ls_str_new(char *str);
 void		ls_str_addfront(t_lst_str **lst, t_lst_str *new);
 void		ls_str_addback(t_lst_str **lst, t_lst_str *new);
 void		ls_str_clear(t_lst_str **lst);
+int			ls_str_len(t_lst_str **lst);
 
 /* ENV */
 
