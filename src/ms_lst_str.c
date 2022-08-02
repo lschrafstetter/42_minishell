@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/02 10:24:22 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:21:24 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,21 @@ int	ls_str_len(t_lst_str **lst)
 		temp = temp->next;
 	}
 	return (i);
+}
+
+t_lst_str	*ls_str_getindex(t_lst_str **lst, int index)
+{
+	t_lst_str	*temp;
+	int			i;
+
+	temp = *lst;
+	i = 0;
+	while (temp)
+	{
+		if (i == index)
+			return (temp);
+		i++;
+		temp = temp->next;
+	}
+	return (NULL);
 }

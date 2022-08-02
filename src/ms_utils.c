@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 10:01:41 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:34:31 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,22 @@ char	*prompt_get(t_data *data)
 	prompt = ft_strjoin(helper, "$ ");
 	free(helper);
 	return (prompt);
+}
+
+int	not_closed(const char *str)
+{
+	int	sq_open;
+	int	dq_open;
+
+	sq_open = 0;
+	dq_open = 0;
+	while (*str)
+	{
+		if (*str == '\'' && !dq_open)
+			sq_open = 1 - sq_open;
+		if (*str == '"' && !sq_open)
+			dq_open = 1 - dq_open;
+		str++;
+	}
+	return (sq_open || dq_open);
 }

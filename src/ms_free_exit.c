@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/01 14:28:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:38:51 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ void	ms_exit(int exit_code, char *message)
 {
 	printf("%s", message);
 	exit(exit_code);
+}
+
+void	free_process(t_process	process)
+{
+	free_str(process.path);
+	if (process.ls_red)
+		ls_env_clear(process.ls_red);
+	if (process.ls_cmd)
+		ls_str_clear(process.ls_cmd);
+	if (process.cmd)
+	{
+		while (process.cmd)
+		{
+			free(*(process.cmd));
+			process.cmd++;
+		}
+		free(process.cmd);
+	}
 }
 
 void	data_free(t_data *data)
@@ -43,4 +61,19 @@ void	ms_quit(t_data *data, int err)
 {
 	data_free(data);
 	ms_exit(err, "\n");
+}
+
+void	data_reset(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_processes)
+	{
+		free_process(data->processes[i]);
+		i++;
+	}
+	free(data->processes);
+	free_str(data->input);
+	free_str(data->prompt);
 }

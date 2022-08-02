@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_env.c                                           :+:      :+:    :+:   */
+/*   ms_parse_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 15:09:56 by lschrafs         ###   ########.fr       */
+/*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
+/*   Updated: 2022/08/02 16:32:09 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ms_getenv(t_data *data, char *name)
+/*static void	e_a_s_red(t_process *ret)
 {
 	t_lst_env	*temp;
 
-	temp = *(data->ls_env);
+	temp = *(ret->ls_red);
 	while (temp)
 	{
-		if (ft_strncmp(temp->name, name, ft_strlen(name) + 1) == 0)
-			return (temp->value);
+		str_expand(temp->value);
 		temp = temp->next;
 	}
-	return ("");
+	temp = *(ret->ls_red);
+	while (temp)
+	{
+		str_remove_quotes(temp->value);
+		temp = temp->next;
+	}
+}*/
+
+void	expand_and_sort(t_process *ret)
+{
+	(void) ret;
+	//e_a_s_red(ret);
+	//e_a_s_cmd(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 10:29:33 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:30:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ typedef struct s_lst_str
 	char				*str;
 }	t_lst_str;
 
+/* SUBPROCESS STRUCT */
+
 typedef struct s_process
 {
+	int					malloc_error;
 	int					fdin;
 	int					fdout;
 	char				**cmd;
+	t_lst_env			**ls_red;
+	t_lst_str			**ls_cmd;
 	char				*path;
 	struct s_data		*data;
 }	t_process;
@@ -55,9 +60,6 @@ typedef struct s_data
 	t_process			*processes;
 	char				*input;
 	char				*prompt;
-	char				*infile;
-	char				*main;
-	char				*outfile;
 	int					n_processes;
 	int					exit_code;
 }	t_data;
@@ -79,6 +81,7 @@ void		ls_str_addfront(t_lst_str **lst, t_lst_str *new);
 void		ls_str_addback(t_lst_str **lst, t_lst_str *new);
 void		ls_str_clear(t_lst_str **lst);
 int			ls_str_len(t_lst_str **lst);
+t_lst_str	*ls_str_getindex(t_lst_str **lst, int index);
 
 /* ENV */
 
@@ -87,6 +90,9 @@ char		*ms_getenv(t_data *data, char *name);
 /* PARSING */
 
 int			input_parse(t_data *data);
+t_lst_str	**parse_pipes(t_data *data);
+t_lst_str	**parse_for_whitespace(const char *str);
+void		expand_and_sort(t_process *ret);
 
 /* EXECUTING */
 
@@ -98,8 +104,11 @@ void		ms_quit(t_data *data, int err);
 void		ms_exit(int err, char *message);
 void		data_free(t_data *data);
 void		free_str(char *str);
+void		free_process(t_process	process);
+void		data_reset(t_data *data);
 int			is_whitespace(int c);
 int			is_history_command(char *str);
 char		*prompt_get(t_data *data);
+int			not_closed(const char *str);
 
 #endif

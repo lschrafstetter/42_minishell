@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 11:11:09 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:39:05 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	inputloop(t_data *data)
 {
+	char	*helper1;
+	char	*helper2;
+
 	rl_catch_signals = 0;
 	while (1)
 	{
@@ -21,6 +24,14 @@ void	inputloop(t_data *data)
 		data->input = readline(data->prompt);
 		if (!(data->input))
 			ms_quit(data, 0);
+		while (not_closed(data->input))
+		{
+			helper1 = readline("> ");
+			helper2 = ft_strjoin(data->input, helper1);
+			free(data->input);
+			free(helper1);
+			data->input = helper2;
+		}
 		add_history(data->input);
 		if (is_history_command(data->input))
 			rl_clear_history();
@@ -31,8 +42,7 @@ void	inputloop(t_data *data)
 			if (input_execute(data))
 				ms_quit(data, 1);
 		}
-		free_str(data->input);
-		free_str(data->prompt);
+		data_reset(data);
 	}
 }
 
