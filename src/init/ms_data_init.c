@@ -6,11 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/01 14:20:54 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:58:52 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*get_env_name(char *env_line)
 {
@@ -66,6 +66,7 @@ t_data	*datastruct_init(char **envp)
 	data->exit_code = 0;
 	data->input = NULL;
 	data->prompt = NULL;
+	data->processes = NULL;
 	if (env_init(envp, data))
 	{
 		data_free(data);

@@ -6,11 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 15:38:51 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:02:04 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	free_str(char *str)
 {
@@ -67,13 +67,17 @@ void	data_reset(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->n_processes)
-	{
-		free_process(data->processes[i]);
-		i++;
+	if (data->processes)
+	{	
+		i = 0;
+		while (i < data->n_processes)
+		{
+			free_process(data->processes[i]);
+			i++;
+		}
 	}
 	free(data->processes);
+	data->processes = NULL;
 	free_str(data->input);
 	free_str(data->prompt);
 }

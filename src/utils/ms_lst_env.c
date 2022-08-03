@@ -6,11 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/01 14:13:32 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:48:20 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_lst_env	*ls_env_new(char *name, char *value)
 {

@@ -6,11 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 15:34:31 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:48:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	is_whitespace(int c)
 {

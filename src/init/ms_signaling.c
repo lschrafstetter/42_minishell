@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_env.c                                           :+:      :+:    :+:   */
+/*   ms_signaling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 15:09:56 by lschrafs         ###   ########.fr       */
+/*   Created: 2022/07/27 18:21:47 by lschrafs          #+#    #+#             */
+/*   Updated: 2022/08/03 15:47:58 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-char	*ms_getenv(t_data *data, char *name)
+static void	handler(int signum)
 {
-	t_lst_env	*temp;
-
-	temp = *(data->ls_env);
-	while (temp)
+	if (signum == SIGINT)
 	{
-		if (ft_strncmp(temp->name, name, ft_strlen(name) + 1) == 0)
-			return (temp->value);
-		temp = temp->next;
+		write(1, "^C\n", 3);
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	return ("");
+}
+
+void	signalhandler_init(void)
+{
+	signal(SIGINT, &handler);
+	signal(SIGQUIT, &handler);
 }
