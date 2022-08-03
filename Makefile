@@ -6,7 +6,7 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/03 15:47:34 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/03 16:20:30 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS_NAMES	= 	main \
 				$(UTILS)ms_utils \
 				$(UTILS)ms_free_exit \
 				$(UTILS)ms_lst_str \
-				$(UTILS)ms_lst_env
+				$(UTILS)ms_lst_env \
+				$(UTILS)ms_lst_red
 
 OBJS_PATH	= 	./obj/
 OBJS_NAMES	= 	$(SRCS_NAMES:%=%.o)

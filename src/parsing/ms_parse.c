@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 15:48:11 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:19:49 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	sort_cmd_red(t_lst_str **ls, t_process *proc)
 			|| ft_strncmp(temp->str, ">", 2) == 0 \
 			|| ft_strncmp(temp->str, ">>", 3) == 0)
 		{
-			ls_env_addback(proc->ls_red, \
-							ls_env_new(temp->str, temp->next->str));
+			ls_red_addback(proc->ls_red, \
+							ls_red_new(temp->str, temp->next->str));
 			temp = temp->next;
 			if (!temp->next)
 				break ;
@@ -47,7 +47,7 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	ret.fdin = 0;
 	ret.fdout = 1;
 	ret.cmd = NULL;
-	ret.ls_red = malloc(sizeof(t_lst_env **));
+	ret.ls_red = malloc(sizeof(t_lst_red **));
 	ret.ls_cmd = malloc(sizeof(t_lst_str **));
 	if (!ret.ls_cmd || !ret.ls_red || !str)
 	{
@@ -71,12 +71,12 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	}
 	printf("\n");
 	//////////////////////////
-	t_lst_env *te;
+	t_lst_red *te;
 	te = *ret.ls_red;
 	printf("Redirects:\n");
 	while (te)
 	{
-		printf("%s und %s\n", te->name, te->value);
+		printf("%s und %s\n", te->redirection, te->filename);
 		te = te->next;
 	}
 	printf("\n");
@@ -126,6 +126,8 @@ int	input_parse(t_data *data)
 		ls_str_clear(ls_pipes);
 		return (1);
 	}
+
+	
 	t_lst_str	*temp;
 	temp = *ls_pipes;
 	while (temp)
@@ -133,6 +135,8 @@ int	input_parse(t_data *data)
 		printf("%s\n", temp->str);
 		temp = temp->next;
 	}
+
+	
 	printf("Needed processes: %i\n", ls_str_len(ls_pipes));
 	ls_str_clear(ls_pipes);
 	return (0);

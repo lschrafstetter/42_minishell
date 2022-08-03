@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/02 16:30:57 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:20:07 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 
 /* LIST STRUCTS */
 
+typedef struct s_lst_str
+{
+	struct s_lst_str	*next;
+	char				*str;
+}	t_lst_str;
+
 typedef struct s_lst_env
 {
 	struct s_lst_env	*next;
@@ -32,11 +38,13 @@ typedef struct s_lst_env
 	char				*value;
 }	t_lst_env;
 
-typedef struct s_lst_str
+typedef struct s_lst_red
 {
-	struct s_lst_str	*next;
-	char				*str;
-}	t_lst_str;
+	struct s_lst_red	*next;
+	char				*redirection;
+	char				*filename;
+	int					*ambiguous_redirect;
+}	t_lst_red;
 
 /* SUBPROCESS STRUCT */
 
@@ -46,7 +54,7 @@ typedef struct s_process
 	int					fdin;
 	int					fdout;
 	char				**cmd;
-	t_lst_env			**ls_red;
+	t_lst_red			**ls_red;
 	t_lst_str			**ls_cmd;
 	char				*path;
 	struct s_data		*data;
@@ -71,17 +79,22 @@ t_data		*datastruct_init(char **envp);
 
 /* LISTS */
 
-t_lst_env	*ls_env_new(char *name, char *value);
-void		ls_env_addfront(t_lst_env **lst, t_lst_env *new);
-void		ls_env_addback(t_lst_env **lst, t_lst_env *new);
-void		ls_env_clear(t_lst_env **lst);
-
 t_lst_str	*ls_str_new(char *str);
 void		ls_str_addfront(t_lst_str **lst, t_lst_str *new);
 void		ls_str_addback(t_lst_str **lst, t_lst_str *new);
 void		ls_str_clear(t_lst_str **lst);
 int			ls_str_len(t_lst_str **lst);
 t_lst_str	*ls_str_getindex(t_lst_str **lst, int index);
+
+t_lst_env	*ls_env_new(char *name, char *value);
+void		ls_env_addfront(t_lst_env **lst, t_lst_env *new);
+void		ls_env_addback(t_lst_env **lst, t_lst_env *new);
+void		ls_env_clear(t_lst_env **lst);
+
+t_lst_red	*ls_red_new(char *redirection, char *filename);
+void		ls_red_addfront(t_lst_red **lst, t_lst_red *new);
+void		ls_red_addback(t_lst_red **lst, t_lst_red *new);
+void		ls_red_clear(t_lst_red **lst);
 
 /* ENV */
 
