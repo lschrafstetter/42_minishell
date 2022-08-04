@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 15:43:26 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:29:05 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,22 @@ char	*ms_getenv(t_data *data, char *name)
 		temp = temp->next;
 	}
 	return ("");
+}
+
+int	env(t_process *proc)
+{
+	t_lst_env	*temp;
+
+	temp = *(proc->data->ls_env);
+	while (temp)
+	{
+		if (temp->value)
+		{
+			write (proc->fdout, temp->name, ft_strlen(temp->name));
+			write (proc->fdout, temp->value, ft_strlen(temp->value));
+			write (proc->fdout, "\n", 1);
+		}
+		temp = temp->next;
+	}
+	return (0);
 }

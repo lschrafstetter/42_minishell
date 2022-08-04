@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_data_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 15:58:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:23:44 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_env_name(char *env_line)
 	i = 0;
 	while (env_line[i])
 	{
-		if (env_line[i] == '=')
+		if (env_line[i] == '=' || env_line[i] == '\0')
 			break ;
 		i++;
 	}
