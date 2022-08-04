@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/04 17:25:37 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/04 17:32:59 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ t_lst_env	*copy_env_lst(t_lst_env *env)
 	return (new);
 }
 
-int	sort_new_lst(t_lst_env *new)
-{
-	t_lst_env	*temp;
-	t_lst_env	*temp1;
-
-	temp = new;
-	temp1 = new;
-	while (temp)
-	{
-		while (temp1)
-			if (strncmp(temp1->name, )
-	}
-}
+//int	sort_new_lst(t_lst_env *new)
+//{
+//	t_lst_env	*temp;
+//	t_lst_env	*temp1;
+//
+//	temp = new;
+//	temp1 = new;
+//	while (temp)
+//	{
+//		while (temp1)
+//			if (strncmp(temp1->name, )
+//	}
+//}
 
 /* sorting is the next step */
 
