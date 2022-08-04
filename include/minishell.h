@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 16:20:07 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:39:31 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_lst_red
 	struct s_lst_red	*next;
 	char				*redirection;
 	char				*filename;
-	int					*ambiguous_redirect;
+	int					ambiguous_redirect;
 }	t_lst_red;
 
 /* SUBPROCESS STRUCT */
@@ -105,7 +105,11 @@ char		*ms_getenv(t_data *data, char *name);
 int			input_parse(t_data *data);
 t_lst_str	**parse_pipes(t_data *data);
 t_lst_str	**parse_for_whitespace(const char *str);
+
+/* Expand */
 void		expand_and_sort(t_process *ret);
+char		*str_expand(char *str, t_process *process);
+char		*str_remove_quotes(char *str);
 
 /* EXECUTING */
 

@@ -6,7 +6,7 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/03 16:20:30 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/04 16:14:58 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,11 @@ SRCS_NAMES	= 	main \
 				$(EXECUTE)ms_input_execute \
 				$(INIT)ms_data_init \
 				$(INIT)ms_signaling \
-				$(PARSING)ms_parse \
-				$(PARSING)ms_parse_expand \
-				$(PARSING)ms_parse_utils \
+				$(PARSING)ms_pa \
+				$(PARSING)ms_pa_exp \
+				$(PARSING)ms_pa_exp_str \
+				$(PARSING)ms_pa_exp_quotes \
+				$(PARSING)ms_pa_utils \
 				$(UTILS)ms_utils \
 				$(UTILS)ms_free_exit \
 				$(UTILS)ms_lst_str \
