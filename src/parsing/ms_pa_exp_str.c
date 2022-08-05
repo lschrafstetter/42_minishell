@@ -6,11 +6,27 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 16:26:36 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:13:26 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	num_quotes_in_env(char *str)
+{
+	int	i;
+	int	num_quotes;
+
+	num_quotes = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			num_quotes++;
+		i++;
+	}
+	return (num_quotes);
+}
 
 static int	len_to_endofvar(const char *str)
 {
@@ -46,19 +62,38 @@ static int	index_next_dollar_or_end(const char *str)
 
 static int	expand_dollar(int i, char **expanded, char *str, t_process *proc)
 {
-	char	*helper1;
-	char	*helper2;
+	char	*helper[3];
 	int		index;
+	int		n_quotes;
+	int		i1;
+	int		i2;
 
 	i++;
 	index = len_to_endofvar(&(str[i]));
-	helper1 = ft_calloc(index + 1, 1);
-	ft_strlcat(helper1, &(str[i]), index + 1);
-	helper2 = ms_getenv(proc->data, helper1);
-	free(helper1);
-	helper1 = ft_strjoin(*expanded, helper2);
+	helper[0] = ft_calloc(index + 1, 1);
+	ft_strlcat(helper[0], &(str[i]), index + 1);
+	helper[1] = ft_strdup(ms_getenv(proc->data, helper[0]));
+	n_quotes = num_quotes_in_env(helper[1]);
+	helper[2] = malloc(ft_strlen(helper[1]) + n_quotes + 1);
+	i1 = 0;
+	i2 = 0;
+	while (helper[1][i1])
+	{
+		if (helper[1][i1] == '\'' || helper[1][i1] == '"')
+		{
+			helper[2][i2] = '\\';
+			i2++;
+		}
+		helper[2][i2] = helper[1][i1];
+		i2++;
+		i1++;
+	}
+	helper[2][i2] = 0;
+	free(helper[0]);
+	helper[0] = ft_strjoin(*expanded, helper[2]);
 	free(*expanded);
-	*expanded = helper1;
+	free(helper[2]);
+	*expanded = helper[0];
 	i += index;
 	return (i);
 }

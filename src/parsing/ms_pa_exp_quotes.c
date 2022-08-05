@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 16:53:37 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:27:44 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,19 @@ static	int	len_to_quote_or_end(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '\'' && str[i] != '"')
+	while (str[i])
+	{
+		printf("1\n");
+		if (str[i] != '\'' || str[i] != '"')
+			break ;
+		if (str[i] == '\\' && (str[i + 1] != '\'' || str[i + 1] != '"'))
+		{
+			printf("3\n");
+			i++;
+		}
 		i++;
+	}
+	printf("Length to quote or end: %i\n", i);
 	return (i);
 }
 
@@ -28,7 +39,15 @@ static int	len_to_closing_quote(char *str, char quote)
 
 	i = 0;
 	while (str[i] && str[i] != quote)
+	{
+		printf("2\n");
+		if (str[i] != quote)
+			break ;
+		if (str[i] == '\\' && (str[i + 1] != '\'' || str[i + 1] != '"'))
+			i++;
 		i++;
+	}
+	printf("Length to closing quote: %i\n", i);
 	return (i);
 }
 
