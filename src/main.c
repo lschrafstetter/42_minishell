@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 09:36:01 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:29:29 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	inputloop(t_data *data)
 			if (input_execute(data))
 				ms_quit(data, 1);
 		}
+		printf("Before data_reset\n");
 		data_reset(data);
 	}
 }

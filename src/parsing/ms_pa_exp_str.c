@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 15:13:26 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:49:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	expand_dollar(int i, char **expanded, char *str, t_process *proc)
 	return (i);
 }
 
-char	*str_expand(char *str, t_process *process)
+void	str_expand(char **str, t_process *process)
 {
 	int			i;
 	int			index;
@@ -108,21 +108,21 @@ char	*str_expand(char *str, t_process *process)
 
 	expanded = ft_strdup("");
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 	{
-		index = index_next_dollar_or_end(&(str[i]));
+		index = index_next_dollar_or_end(&((*str)[i]));
 		if (index)
 		{
 			helper1 = ft_calloc(index + 1, 1);
-			ft_strlcat(helper1, &(str[i]), index + 1);
+			ft_strlcat(helper1, &((*str)[i]), index + 1);
 			helper2 = ft_strjoin(expanded, helper1);
 			free(expanded);
 			free(helper1);
 			expanded = helper2;
 			i += index;
 		}
-		else if (str[i] == '$')
-			i = expand_dollar(i, &expanded, str, process);
+		else if ((*str)[i] == '$')
+			i = expand_dollar(i, &expanded, *str, process);
 	}
-	return (expanded);
+	*str = expanded;
 }

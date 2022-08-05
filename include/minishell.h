@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 16:39:31 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:19:38 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		ls_str_addback(t_lst_str **lst, t_lst_str *new);
 void		ls_str_clear(t_lst_str **lst);
 int			ls_str_len(t_lst_str **lst);
 t_lst_str	*ls_str_getindex(t_lst_str **lst, int index);
+char		**lst_str_to_strarray(t_lst_str **lst);
 
 t_lst_env	*ls_env_new(char *name, char *value);
 void		ls_env_addfront(t_lst_env **lst, t_lst_env *new);
@@ -108,8 +109,10 @@ t_lst_str	**parse_for_whitespace(const char *str);
 
 /* Expand */
 void		expand_and_sort(t_process *ret);
-char		*str_expand(char *str, t_process *process);
-char		*str_remove_quotes(char *str);
+void		str_expand(char **str, t_process *process);
+void		str_remove_quotes(char **str);
+void		expand_list_by_whitespace(t_lst_str *node);
+void		remove_backslashes_before_quotes(char **str);
 
 /* EXECUTING */
 

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 15:27:44 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:53:17 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,12 @@ static	int	len_to_quote_or_end(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("1\n");
-		if (str[i] != '\'' || str[i] != '"')
+		if (str[i] == '\'' || str[i] == '"')
 			break ;
 		if (str[i] == '\\' && (str[i + 1] != '\'' || str[i + 1] != '"'))
-		{
-			printf("3\n");
 			i++;
-		}
 		i++;
 	}
-	printf("Length to quote or end: %i\n", i);
 	return (i);
 }
 
@@ -38,16 +33,14 @@ static int	len_to_closing_quote(char *str, char quote)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != quote)
+	while (str[i] && str[i] == quote)
 	{
-		printf("2\n");
 		if (str[i] != quote)
 			break ;
 		if (str[i] == '\\' && (str[i + 1] != '\'' || str[i + 1] != '"'))
 			i++;
 		i++;
 	}
-	printf("Length to closing quote: %i\n", i);
 	return (i);
 }
 
@@ -86,7 +79,7 @@ static int	add_quoted_part(int i, char **cleaned, char *str, char quote)
 	return (i);
 }
 
-char	*str_remove_quotes(char *str)
+void	str_remove_quotes(char **str)
 {
 	char	*cleaned;
 	int		index;
@@ -94,15 +87,15 @@ char	*str_remove_quotes(char *str)
 
 	cleaned = ft_strdup("");
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 	{
-		index = len_to_quote_or_end(&(str[i]));
+		index = len_to_quote_or_end(&((*str)[i]));
 		if (index)
-			i = add_part_without_quotes(i, &cleaned, str, index);
-		else if (str[i] == '"')
-			i = add_quoted_part(i, &cleaned, str, '"');
-		else if (str[i] == '\'')
-			i = add_quoted_part(i, &cleaned, str, '\'');
+			i = add_part_without_quotes(i, &cleaned, *str, index);
+		else if ((*str)[i] == '"')
+			i = add_quoted_part(i, &cleaned, *str, '"');
+		else if ((*str)[i] == '\'')
+			i = add_quoted_part(i, &cleaned, *str, '\'');
 	}
-	return (cleaned);
+	*str = cleaned;
 }

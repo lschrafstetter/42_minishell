@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_free_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 17:23:17 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/05 18:40:25 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ void	free_process(t_process	process)
 		ls_str_clear(process.ls_cmd);
 	if (process.cmd)
 	{
-		while (process.cmd)
+		while (*process.cmd)
 		{
 			free(*(process.cmd));
 			process.cmd++;
 		}
-		free(process.cmd);
 	}
 }
 

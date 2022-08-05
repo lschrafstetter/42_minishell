@@ -6,7 +6,7 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/04 16:14:58 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/05 18:20:47 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,13 @@ SRCS_NAMES	= 	main \
 				$(PARSING)ms_pa_exp \
 				$(PARSING)ms_pa_exp_str \
 				$(PARSING)ms_pa_exp_quotes \
-				$(PARSING)ms_pa_utils \
+				$(PARSING)ms_pa_exp_lst \
+				$(PARSING)ms_pa_utils1 \
+				$(PARSING)ms_pa_utils2 \
 				$(UTILS)ms_utils \
 				$(UTILS)ms_free_exit \
-				$(UTILS)ms_lst_str \
+				$(UTILS)ms_lst_str1 \
+				$(UTILS)ms_lst_str2 \
 				$(UTILS)ms_lst_env \
 				$(UTILS)ms_lst_red
 

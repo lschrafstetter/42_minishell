@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parse.c                                         :+:      :+:    :+:   */
+/*   ms_pa.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 16:19:49 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:27:04 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	//////////////////////////
 	t_lst_red *te;
 	te = *ret.ls_red;
-	printf("Redirects:\n");
+	printf("Redirects:\n"); /////////
 	while (te)
 	{
 		printf("%s und %s\n", te->redirection, te->filename);
 		te = te->next;
 	}
-	printf("\n");
+	printf("\n");///////
 	ls_str_clear(temp);
 	expand_and_sort(&ret);
+	printf("1\n"); //////
 	return (ret);
 }
 
