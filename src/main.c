@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:37:42 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:43:29 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	inputloop(t_data *data)
 {
-	char	*helper1;
-	char	*helper2;
-
 	rl_catch_signals = 0;
 	while (1)
 	{
@@ -26,11 +23,9 @@ void	inputloop(t_data *data)
 			ms_quit(data, 0);
 		while (not_closed(data->input))
 		{
-			helper1 = readline("> ");
-			helper2 = ft_strjoin(data->input, helper1);
+			printf("Quotes not closed!\n");
 			free(data->input);
-			free(helper1);
-			data->input = helper2;
+			data->input = readline(data->prompt);
 		}
 		add_history(data->input);
 		if (is_history_command(data->input))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/04 17:32:59 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/06 10:44:07 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_lst_env	*copy_env_lst(t_lst_env *env)
 
 /* sorting is the next step */
 
-int		print_export_lst(t_process *proc)
+int	print_export_lst(t_process *proc)
 {
 	t_lst_env	*new;
 	char		prefix;

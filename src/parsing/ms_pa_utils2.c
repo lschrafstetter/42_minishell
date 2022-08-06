@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 18:16:13 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:59:35 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	remove_backslashes_before_quotes(char **str)
 	while (i1 < str_new_len)
 	{
 		if ((*str)[i1] == '\\' \
-				&& ((*str)[i1 + 1] == '"' || (*str)[i1 + 1] == '"'))
+				&& ((*str)[i1 + 1] == '\'' || (*str)[i1 + 1] == '"'))
 			i1++;
 		temp[i2] = (*str)[i1];
 		i1++;

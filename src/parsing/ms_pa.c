@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:38:24 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:40:39 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,6 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	if (!temp)
 		return (ret);
 	sort_cmd_red(temp, &ret);
-	/////////////////////////
-	t_lst_str *t;
-	t = *ret.ls_cmd;
-	printf("Commands:\n");
-	while (t)
-	{
-		printf("%s\n", t->str);
-		t = t->next;
-	}
-	printf("\n");
-	//////////////////////////
-	t_lst_red *te;
-	te = *ret.ls_red;
-	printf("Redirects:\n"); /////////
-	while (te)
-	{
-		printf("%s und %s\n", te->redirection, te->filename);
-		te = te->next;
-	}
-	printf("\n");///////
 	ls_str_clear(temp);
 	expand_and_sort(&ret);
 	return (ret);
@@ -117,7 +97,6 @@ int	input_parse(t_data *data)
 {
 	t_lst_str	**ls_pipes;
 
-	printf("Parsing [%s] into data!\n", data->input);
 	ls_pipes = parse_pipes(data);
 	if (!ls_pipes)
 		return (1);
@@ -126,18 +105,6 @@ int	input_parse(t_data *data)
 		ls_str_clear(ls_pipes);
 		return (1);
 	}
-
-	
-	t_lst_str	*temp;
-	temp = *ls_pipes;
-	while (temp)
-	{
-		printf("%s\n", temp->str);
-		temp = temp->next;
-	}
-
-	
-	printf("Needed processes: %i\n", ls_str_len(ls_pipes));
 	ls_str_clear(ls_pipes);
 	return (0);
 }

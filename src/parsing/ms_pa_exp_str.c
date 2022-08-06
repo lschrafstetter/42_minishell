@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:35:20 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:46:50 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ void	str_expand(char **str, t_process *process)
 	int			i;
 	int			index;
 	char		*expanded;
-	char		*helper1;
-	char		*helper2;
+	char		*helper[2];
 
 	expanded = ft_strdup("");
 	i = 0;
@@ -114,12 +113,12 @@ void	str_expand(char **str, t_process *process)
 		index = index_next_dollar_or_end(&((*str)[i]));
 		if (index)
 		{
-			helper1 = ft_calloc(index + 1, 1);
-			ft_strlcat(helper1, &((*str)[i]), index + 1);
-			helper2 = ft_strjoin(expanded, helper1);
+			helper[0] = ft_calloc(index + 1, 1);
+			ft_strlcat(helper[0], &((*str)[i]), index + 1);
+			helper[1] = ft_strjoin(expanded, helper[0]);
 			free(expanded);
-			free(helper1);
-			expanded = helper2;
+			free(helper[0]);
+			expanded = helper[1];
 			i += index;
 		}
 		else if ((*str)[i] == '$')

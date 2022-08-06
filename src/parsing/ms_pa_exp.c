@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:37:37 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:44:23 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,6 @@ static void	expand_sort_cmd(t_process *process)
 		temp = temp->next;
 	}
 	process->cmd = lst_str_to_strarray(process->ls_cmd);
-	t_lst_str *temp1;
-	temp1 = *(process->ls_cmd);
-	while (temp1)
-	{
-		printf("Command: %s\n", temp1->str);
-		temp1 = temp1->next;
-	}
 	ls_str_clear(process->ls_cmd);
 	process->ls_cmd = NULL;
 }
@@ -80,21 +73,4 @@ void	expand_and_sort(t_process *process)
 {
 	expand_sort_red(process);
 	expand_sort_cmd(process);
-
-	printf("Expanding done\n");
-	t_lst_red *temp;
-	temp = *(process->ls_red);
-	while (temp)
-	{
-		printf("Red: %s File: %s AG: %i\n", temp->redirection, temp->filename, temp->ambiguous_redirect);
-		temp = temp->next;
-	}
-	printf("Array of commands:\n");
-	char	**arr = process->cmd;
-	while (*arr)
-	{
-		printf("%s\n", *arr);
-		arr++;
-	}
-	printf("End of expanding and sorting\n");
 }

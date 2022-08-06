@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:36:54 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:38:32 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static int	len_to_closing_quote(char *str, char quote)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] == quote)
+	while (str[i])
 	{
-		if (str[i] != quote)
+		if (str[i] == quote)
 			break ;
-		if (str[i] == '\\' && (str[i + 1] != '\'' || str[i + 1] != '"'))
+		if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '"'))
 			i++;
 		i++;
 	}
@@ -63,39 +63,41 @@ static int	add_quoted_part(int i, char **cleaned, char *str, char quote)
 {
 	char	*helper1;
 	char	*helper2;
-	int		index;
+	int		len;
 
 	i++;
-	index = len_to_closing_quote(&(str[i]), quote);
-	helper1 = ft_calloc(index + 1, 1);
-	ft_strlcat(helper1, &(str[i]), index + 1);
+	if (str[i] == quote)
+		i++;
+	len = len_to_closing_quote(&(str[i]), quote);
+	helper1 = ft_calloc(len + 1, 1);
+	ft_strlcat(helper1, &(str[i]), len + 1);
 	helper2 = ft_strjoin(*cleaned, helper1);
 	free(*cleaned);
 	free(helper1);
 	*cleaned = helper2;
-	i += index;
-	if (str[i])
-		i++;
+	i += len;
 	return (i);
 }
 
 void	str_remove_quotes(char **str)
 {
 	char	*cleaned;
-	int		index;
+	int		len;
 	int		i;
 
 	cleaned = ft_strdup("");
 	i = 0;
 	while ((*str)[i])
 	{
-		index = len_to_quote_or_end(&((*str)[i]));
-		if (index)
-			i = add_part_without_quotes(i, &cleaned, *str, index);
+		len = len_to_quote_or_end(&((*str)[i]));
+		if (len)
+			i = add_part_without_quotes(i, &cleaned, *str, len);
 		else if ((*str)[i] == '"')
 			i = add_quoted_part(i, &cleaned, *str, '"');
 		else if ((*str)[i] == '\'')
 			i = add_quoted_part(i, &cleaned, *str, '\'');
+		else
+			i++;
 	}
 	free(*str);
 	*str = cleaned;
