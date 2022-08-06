@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 18:40:25 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:20:10 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ms_exit(int exit_code, char *message)
 
 void	free_process(t_process	process)
 {
+	int	i;
+
 	free_str(process.path);
 	if (process.ls_red)
 		ls_red_clear(process.ls_red);
@@ -34,11 +36,13 @@ void	free_process(t_process	process)
 		ls_str_clear(process.ls_cmd);
 	if (process.cmd)
 	{
-		while (*process.cmd)
+		i = 0;
+		while (process.cmd[i])
 		{
-			free(*(process.cmd));
-			process.cmd++;
+			free(process.cmd[i]);
+			i++;
 		}
+		free(process.cmd);
 	}
 }
 

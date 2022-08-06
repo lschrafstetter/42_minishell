@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 18:13:27 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 18:14:05 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:23:55 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ static t_lst_str	**split_by_relevant_whitespace(char *str)
 	return (lst);
 }
 
-void	expand_list_by_whitespace(t_lst_str *node)
+void	expand_list_by_whitespace(t_lst_str **node)
 {
 	t_lst_str	**temp_lst;
 	int			temp_len;
 
-	temp_lst = split_by_relevant_whitespace(node->str);
+	temp_lst = split_by_relevant_whitespace((*node)->str);
 	temp_len = ls_str_len(temp_lst);
-	ls_str_getindex(temp_lst, temp_len - 1)->next = node->next;
-	free(node->str);
-	node->str = ft_strdup((*temp_lst)->str);
-	node->next = (*temp_lst)->next;
+	ls_str_getindex(temp_lst, temp_len - 1)->next = (*node)->next;
+	free((*node)->str);
+	(*node)->str = ft_strdup((*temp_lst)->str);
+	(*node)->next = (*temp_lst)->next;
 	free((*temp_lst)->str);
 	free(*temp_lst);
 	free(temp_lst);

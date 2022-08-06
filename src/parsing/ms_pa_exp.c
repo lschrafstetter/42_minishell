@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 18:35:01 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:37:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	expand_sort_cmd(t_process *process)
 	{
 		str_expand(&(temp->str), process);
 		if (contains_relevant_whitespace(temp->str))
-			expand_list_by_whitespace(temp);
+			expand_list_by_whitespace(&temp);
 		str_remove_quotes(&(temp->str));
 		remove_backslashes_before_quotes(&(temp->str));
 		temp = temp->next;

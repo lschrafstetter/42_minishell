@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 18:19:38 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:15:54 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_lst_str	**parse_for_whitespace(const char *str);
 void		expand_and_sort(t_process *ret);
 void		str_expand(char **str, t_process *process);
 void		str_remove_quotes(char **str);
-void		expand_list_by_whitespace(t_lst_str *node);
+void		expand_list_by_whitespace(t_lst_str **node);
 void		remove_backslashes_before_quotes(char **str);
 
 /* EXECUTING */

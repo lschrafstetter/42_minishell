@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 17:53:17 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:36:54 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	str_remove_quotes(char **str)
 		else if ((*str)[i] == '\'')
 			i = add_quoted_part(i, &cleaned, *str, '\'');
 	}
+	free(*str);
 	*str = cleaned;
 }

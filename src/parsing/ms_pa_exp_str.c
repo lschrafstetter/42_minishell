@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/05 17:49:57 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/06 09:35:20 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static int	expand_dollar(int i, char **expanded, char *str, t_process *proc)
 		i2++;
 		i1++;
 	}
+	free(helper[1]);
 	helper[2][i2] = 0;
 	free(helper[0]);
 	helper[0] = ft_strjoin(*expanded, helper[2]);
@@ -124,5 +125,6 @@ void	str_expand(char **str, t_process *process)
 		else if ((*str)[i] == '$')
 			i = expand_dollar(i, &expanded, *str, process);
 	}
+	free(*str);
 	*str = expanded;
 }
