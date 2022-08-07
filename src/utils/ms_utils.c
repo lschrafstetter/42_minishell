@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/03 15:48:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/07 10:51:47 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,10 @@ int	not_closed(const char *str)
 		str++;
 	}
 	return (sq_open || dq_open);
+}
+
+int	print_return_error(char *str, int err_num, int fd)
+{
+	write(fd, str, ft_strlen(str));
+	return (err_num);
 }

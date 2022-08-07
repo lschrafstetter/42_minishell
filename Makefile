@@ -6,7 +6,7 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/05 18:20:47 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/07 11:07:01 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ UTILS		=	utils/
 
 SRCS_NAMES	= 	main \
 				$(BUILTINS)ms_env \
+				$(BUILTINS)ms_cd \
 				$(EXECUTE)ms_input_execute \
 				$(INIT)ms_data_init \
 				$(INIT)ms_signaling \

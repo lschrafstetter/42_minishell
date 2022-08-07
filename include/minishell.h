@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:15:54 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/07 11:06:48 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			input_parse(t_data *data);
 t_lst_str	**parse_pipes(t_data *data);
 t_lst_str	**parse_for_whitespace(const char *str);
 
-/* Expand */
+/* EXPAND */
 void		expand_and_sort(t_process *ret);
 void		str_expand(char **str, t_process *process);
 void		str_remove_quotes(char **str);
@@ -117,6 +117,10 @@ void		remove_backslashes_before_quotes(char **str);
 /* EXECUTING */
 
 int			input_execute(t_data *data);
+
+/* BUILTINS */
+
+int			ms_cd(t_data *data, char **argv);
 
 /* UTILS */
 
@@ -130,5 +134,6 @@ int			is_whitespace(int c);
 int			is_history_command(char *str);
 char		*prompt_get(t_data *data);
 int			not_closed(const char *str);
+int			print_return_error(char *str, int err_num, int fd);
 
 #endif
