@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/12 15:25:54 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/12 15:45:53 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,36 +42,10 @@ int	print_export_lst(t_process *proc)
 
 void	replace_value(t_lst_env *node, char *str)
 {
-	char		*value;
-
-	value = ft_strchr(str, '=');
-	if (!value)
-		return ;
 	free_str(node->value);
-	node->value = ft_calloc(ft_strlen(value), 1);
-	ft_strlcat(node->value, value + 1, ft_strlen(value));
+	node->value = ft_calloc(ft_strlen(str) + 1, 1);
+	ft_strlcat(node->value, str, ft_strlen(str) + 1);
 }
-
-
-// void	env_set_value(t_process *proc, char *str)
-// {
-// 	t_lst_env	*temp;
-// 	char		*name;
-// 	char		*value;
-
-// 	name = get_env_name(str);
-// 	value = ft_strchr(str, '=');
-// 	if (is_id_invalid(name))
-// 		return (1);
-// 	temp = ls_env_contains_name(proc->data->ls_env, name);
-// 	if (temp)
-// 		replace_value(temp, value);
-// 	else if (value)
-// 		ls_env_addback(proc->data->ls_env, ls_env_new(name, value + 1));
-// 	else
-// 		ls_env_addback(proc->data->ls_env, ls_env_new(name, NULL));
-// 	free_str(name);
-// }
 
 int	env_set_value(t_process *proc, char *name, char *value)
 {
@@ -81,7 +55,10 @@ int	env_set_value(t_process *proc, char *name, char *value)
 		return (1);
 	temp = ls_env_contains_name(proc->data->ls_env, name);
 	if (temp)
-		replace_value(temp, value);
+	{
+		if (value)
+			replace_value(temp, value);
+	}
 	else
 		ls_env_addback(proc->data->ls_env, ls_env_new(name, value));
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/12 15:24:04 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/12 16:09:11 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <errno.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 /* LIST STRUCTS */
 
