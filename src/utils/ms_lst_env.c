@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/03 15:48:20 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:34:58 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_lst_env	*ls_env_new(char *name, char *value)
 	new = malloc(sizeof(t_lst_env));
 	new->next = NULL;
 	new->name = ft_strdup(name);
-	new->value = ft_strdup(value);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = NULL;
 	return (new);
 }
 
@@ -67,4 +70,24 @@ void	ls_env_clear(t_lst_env **lst)
 		ls_env_clearnodes(lst);
 	free(lst);
 	lst = NULL;
+}
+
+t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str)
+{
+	t_lst_env	*temp;
+	char		*name;
+
+	name = get_env_name(str);
+	temp = *(lst);
+	while (temp)
+	{
+		if (!(ft_strncmp(name, temp->name, ft_strlen(name) + 1)))
+		{
+			free(name);
+			return (temp);
+		}
+		temp = temp->next;
+	}
+	free(name);
+	return (NULL);
 }

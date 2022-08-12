@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/07 11:07:01 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/12 11:10:48 by dfranke          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	minishell
 
 COMPILER 	= 	cc
-CFLAGS 		= 	-Wall -Wextra -Werror
+CFLAGS 		= 	-Wall -Wextra -Werror -g
 
 MYLIBS 		= 	libft/libft.a
 LIBS 		= 	-lreadline
@@ -26,8 +26,12 @@ PARSING		=	parsing/
 UTILS		=	utils/
 
 SRCS_NAMES	= 	main \
-				$(BUILTINS)ms_env \
+				$(BUILTINS)ms_builtins_utils1 \
+				$(BUILTINS)ms_builtins_utils2 \
 				$(BUILTINS)ms_cd \
+				$(BUILTINS)ms_env \
+				$(BUILTINS)ms_export \
+				$(BUILTINS)ms_pwd_echo_unset \
 				$(EXECUTE)ms_input_execute \
 				$(INIT)ms_data_init \
 				$(INIT)ms_signaling \

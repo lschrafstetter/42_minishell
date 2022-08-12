@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/07 11:06:48 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:24:04 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void		ls_red_clear(t_lst_red **lst);
 
 /* ENV */
 
+char		*get_env_name(char *env_line);
 char		*ms_getenv(t_data *data, char *name);
 
 /* PARSING */
@@ -120,7 +121,12 @@ int			input_execute(t_data *data);
 
 /* BUILTINS */
 
-int			ms_cd(t_data *data, char **argv);
+int			ms_cd(t_process *proc);
+int			ms_env(t_process *proc);
+int			ms_export(t_process *proc);
+int			ms_pwd(t_process *proc);
+int			ms_echo(t_process *proc);
+int			ms_unset(t_process *proc);
 
 /* UTILS */
 
@@ -135,5 +141,13 @@ int			is_history_command(char *str);
 char		*prompt_get(t_data *data);
 int			not_closed(const char *str);
 int			print_return_error(char *str, int err_num, int fd);
+
+int			is_id_invalid(char *str);
+void		sort_new_lst(t_lst_env **new);
+t_lst_env	*ls_exp_new(char *name, char *value);
+void		delete_env(t_process *proc, char *str);
+t_lst_env	**copy_env_lst(t_lst_env **env);
+t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str);
+int			env_set_value(t_process *proc, char *name, char *value);
 
 #endif

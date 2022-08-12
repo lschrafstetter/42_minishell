@@ -6,23 +6,22 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/04 17:24:55 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/12 10:35:24 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	pwd(t_process *proc)
+int	ms_pwd(t_process *proc)
 {
 	char *str;
 
 	str = ms_getenv(proc->data, "PWD");
-	write(proc->fdout, str, ft_strlen(str));
-	write(proc->fdout, "\n", 1);
+	ft_putendl_fd(str, proc->fdout);
 	return (0);
 }
 
-int	echo(t_process *proc)
+int	ms_echo(t_process *proc)
 {
 	int i;
 	int is_nl;
@@ -36,9 +35,9 @@ int	echo(t_process *proc)
 	}
 	while (proc->cmd[i])
 	{
-		write(proc->fdout, proc->cmd[i], ft_strlen(proc->cmd[i]));
+		ft_putstr_fd(proc->cmd[i], proc->fdout);
 		if (proc->cmd[i + 1])
-			write(proc->fdout, " ", 1);
+			ft_putstr_fd(" ", proc->fdout);
 		i++;
 	}
 	if (is_nl)
@@ -74,7 +73,7 @@ void	delete_env(t_process *proc, char *str)
 	}
 }
 
-int	unset(t_process *proc)
+int	ms_unset(t_process *proc)
 {
 	int			i;
 

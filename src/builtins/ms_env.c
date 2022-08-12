@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 17:29:05 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/12 11:29:10 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ms_getenv(t_data *data, char *name)
 	return ("");
 }
 
-int	env(t_process *proc)
+int	ms_env(t_process *proc)
 {
 	t_lst_env	*temp;
 
@@ -35,11 +35,15 @@ int	env(t_process *proc)
 	{
 		if (temp->value)
 		{
-			write (proc->fdout, temp->name, ft_strlen(temp->name));
-			write (proc->fdout, temp->value, ft_strlen(temp->value));
-			write (proc->fdout, "\n", 1);
+			ft_putstr_fd(temp->name, proc->fdout);
+			ft_putstr_fd("=", proc->fdout);
+			ft_putendl_fd(temp->value, proc->fdout);
 		}
 		temp = temp->next;
 	}
 	return (0);
 }
+
+/*
+3. add OLDPWD
+*/

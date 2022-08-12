@@ -6,7 +6,7 @@
 /*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/04 17:23:44 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/12 10:49:07 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_env_name(char *env_line)
 	i = 0;
 	while (env_line[i])
 	{
-		if (env_line[i] == '=' || env_line[i] == '\0')
+		if (env_line[i] == '\0' || env_line[i] == '=')
 			break ;
 		i++;
 	}

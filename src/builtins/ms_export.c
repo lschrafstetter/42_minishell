@@ -3,86 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/06 10:44:07 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:25:54 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*env_var_value(char *str)
-{
-	char	*ret;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[i] || str[i] != '=')
-		i++;
-	if (str[i] == '\0')
-		return (NULL);
-	i++;
-	while (str[i])
-	{
-		ret[j] = str[i];
-		i++;
-		j++;
-	}
-	ret[j] = '\0';
-	return (ret);
-}
-
-t_lst_env	*copy_env_lst(t_lst_env *env)
-{
-	t_lst_env	*new;
-	t_lst_env	*temp;
-
-	temp = env;
-	new = malloc(sizeof(t_lst_env **));
-	if (!(new))
-		return ;
-	new = NULL;
-	while (temp)
-	{
-		ls_env_addback(new, (ls_env_new(temp->name, temp->value)));
-		temp = temp->next;
-	}
-	return (new);
-}
-
-//int	sort_new_lst(t_lst_env *new)
-//{
-//	t_lst_env	*temp;
-//	t_lst_env	*temp1;
-//
-//	temp = new;
-//	temp1 = new;
-//	while (temp)
-//	{
-//		while (temp1)
-//			if (strncmp(temp1->name, )
-//	}
-//}
-
-/* sorting is the next step */
-
 int	print_export_lst(t_process *proc)
 {
-	t_lst_env	*new;
-	char		prefix;
+	t_lst_env	**new;
+	t_lst_env	*temp;
 
-	prefix = strdup("declare -x ");
 	new = copy_env_lst(proc->data->ls_env);
 	sort_new_lst(new);
+	temp = *new;
+	while (temp)
+	{
+		if (ft_strncmp(temp->name, "_", 2))
+		{
+			ft_putstr_fd("declare -x ", proc->fdout);
+			ft_putstr_fd(temp->name, proc->fdout);
+			if (temp->value)
+			{
+				ft_putstr_fd("=\"", proc->fdout);
+				ft_putstr_fd(temp->value, proc->fdout);
+				ft_putstr_fd("\"", proc->fdout);
+			}
+			ft_putstr_fd("\n", proc->fdout);
+		}
+		temp = temp->next;
+	}
+	ls_env_clear((new));
 	return (0);
 }
 
-int	export(t_process *proc)
+void	replace_value(t_lst_env *node, char *str)
+{
+	char		*value;
+
+	value = ft_strchr(str, '=');
+	if (!value)
+		return ;
+	free_str(node->value);
+	node->value = ft_calloc(ft_strlen(value), 1);
+	ft_strlcat(node->value, value + 1, ft_strlen(value));
+}
+
+
+// void	env_set_value(t_process *proc, char *str)
+// {
+// 	t_lst_env	*temp;
+// 	char		*name;
+// 	char		*value;
+
+// 	name = get_env_name(str);
+// 	value = ft_strchr(str, '=');
+// 	if (is_id_invalid(name))
+// 		return (1);
+// 	temp = ls_env_contains_name(proc->data->ls_env, name);
+// 	if (temp)
+// 		replace_value(temp, value);
+// 	else if (value)
+// 		ls_env_addback(proc->data->ls_env, ls_env_new(name, value + 1));
+// 	else
+// 		ls_env_addback(proc->data->ls_env, ls_env_new(name, NULL));
+// 	free_str(name);
+// }
+
+int	env_set_value(t_process *proc, char *name, char *value)
 {
 	t_lst_env	*temp;
+
+	if (is_id_invalid(name))
+		return (1);
+	temp = ls_env_contains_name(proc->data->ls_env, name);
+	if (temp)
+		replace_value(temp, value);
+	else
+		ls_env_addback(proc->data->ls_env, ls_env_new(name, value));
+	return (0);
+}
+
+int	ms_export(t_process *proc)
+{
 	int			i;
+	int			ret;
+	char		*name;
+	char		*value;
 
 	i = 1;
 	if (!proc->cmd[i])
@@ -92,12 +102,16 @@ int	export(t_process *proc)
 	}
 	while (proc->cmd[i])
 	{
-		ls_env_addback(proc->data->ls_env, \
-				(ls_env_new(get_env_name(proc->cmd[i]), \
-				env_var_value(proc->cmd[i]))));
+		name = get_env_name(proc->cmd[i]);
+		value = ft_strchr(proc->cmd[i], '=');
+		if (value)
+			ret = env_set_value(proc, name, value + 1);
+		else
+			ret = env_set_value(proc, name, value);
+		free_str(name);
 		i++;
 	}
-	return (0);
+	return (ret);
 }
 
 /*
@@ -109,4 +123,9 @@ quotes.
 	- format the strings correctly, (add quotations & "declare -x ")
 	- declare -x EXAMPLE="this is example"
 3. Sort the list in the correct order (CAPITALS - underscore - lowercase)
+
+
+NUMBERS CAN BES ON THE SECOND COLUMN
+
+EXPORT LST BACKSLASH BEFOR DOUBLE QUOTE
 */

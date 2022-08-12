@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/07 10:51:47 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 10:34:19 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

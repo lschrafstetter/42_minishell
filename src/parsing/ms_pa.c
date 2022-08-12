@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pa.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 10:53:53 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 10:34:44 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	sort_cmd_red(temp, &ret);
 	ls_str_clear(temp);
 	expand_and_sort(&ret);
+	
 	return (ret);
 }
 

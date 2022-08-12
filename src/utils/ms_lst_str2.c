@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst_str2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/05 18:28:09 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:25:57 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ t_lst_str	*ls_str_getindex(t_lst_str **lst, int index)
 	return (NULL);
 }
 
+int	is_empty(char* str)
+{
+	while (*str)
+	{
+		if (!is_whitespace(*str))
+			return(0);
+		str++;
+	}
+	return(1);
+}
+
 char	**lst_str_to_strarray(t_lst_str **lst)
 {
 	t_lst_str	*temp;
@@ -55,8 +66,11 @@ char	**lst_str_to_strarray(t_lst_str **lst)
 	temp = *lst;
 	while (temp)
 	{
-		arr[i] = ft_strdup(temp->str);
-		i++;
+		if (!is_empty(temp->str))
+		{
+			arr[i] = ft_strdup(temp->str);
+			i++;
+		}
 		temp = temp->next;
 	}
 	arr[i] = NULL;
