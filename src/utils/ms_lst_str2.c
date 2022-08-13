@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst_str2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/12 11:25:57 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/13 10:34:22 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ t_lst_str	*ls_str_getindex(t_lst_str **lst, int index)
 	return (NULL);
 }
 
-int	is_empty(char* str)
+static int	is_empty(char *str)
 {
 	while (*str)
 	{
 		if (!is_whitespace(*str))
-			return(0);
+			return (0);
 		str++;
 	}
-	return(1);
+	return (1);
 }
 
 char	**lst_str_to_strarray(t_lst_str **lst)

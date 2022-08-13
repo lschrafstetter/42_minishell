@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd_echo_unset.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/12 10:35:24 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/13 10:39:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ms_pwd(t_process *proc)
 {
-	char *str;
+	char	*str;
 
 	str = ms_getenv(proc->data, "PWD");
 	ft_putendl_fd(str, proc->fdout);
@@ -23,8 +23,8 @@ int	ms_pwd(t_process *proc)
 
 int	ms_echo(t_process *proc)
 {
-	int i;
-	int is_nl;
+	int	i;
+	int	is_nl;
 
 	i = 1;
 	is_nl = 1;
@@ -45,7 +45,7 @@ int	ms_echo(t_process *proc)
 	return (0);
 }
 
-void	delete_env(t_process *proc, char *str)
+static void	delete_env(t_process *proc, char *str)
 {
 	t_lst_env	*temp;
 	t_lst_env	*prev;
@@ -56,7 +56,7 @@ void	delete_env(t_process *proc, char *str)
 	while (temp)
 	{
 		if (!ft_strncmp(temp->name, str, \
-				ft_strlen(str + 1)))
+						ft_strlen(str + 1)))
 		{
 			if (i == 0)
 				*(proc->data->ls_env) = temp->next;
@@ -75,7 +75,7 @@ void	delete_env(t_process *proc, char *str)
 
 int	ms_unset(t_process *proc)
 {
-	int			i;
+	int	i;
 
 	i = 1;
 	while (proc->cmd[i])

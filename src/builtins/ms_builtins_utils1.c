@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 14:14:53 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/12 13:14:51 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/13 10:43:46 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,15 @@ int	is_id_invalid(char *str)
 	}
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '_' \
+		if (!ft_isalnum(str[i]) || str[i] == '_' \
 					|| str[i] == '=')
-			i++;
-		else
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(str, 2);
 			ft_putendl_fd("': not a valid identifier", 2);
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
@@ -106,6 +105,6 @@ t_lst_env	*ls_exp_new(char *name, char *value)
 	new->next = NULL;
 	new->name = name;
 	if (value)
-		new->value =value;
+		new->value = value;
 	return (new);
 }

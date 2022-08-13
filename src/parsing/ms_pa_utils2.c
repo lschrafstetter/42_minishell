@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:59:35 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/13 10:58:21 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,20 @@ void	remove_backslashes_before_quotes(char **str)
 	}
 	free(*str);
 	*str = temp;
+}
+
+int	num_quotes_in_env(char *str)
+{
+	int	i;
+	int	num_quotes;
+
+	num_quotes = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			num_quotes++;
+		i++;
+	}
+	return (num_quotes);
 }

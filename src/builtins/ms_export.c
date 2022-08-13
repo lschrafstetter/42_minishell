@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/12 15:45:53 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/13 10:41:19 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_export_lst(t_process *proc)
 	return (0);
 }
 
-void	replace_value(t_lst_env *node, char *str)
+static void	replace_value(t_lst_env *node, char *str)
 {
 	free_str(node->value);
 	node->value = ft_calloc(ft_strlen(str) + 1, 1);

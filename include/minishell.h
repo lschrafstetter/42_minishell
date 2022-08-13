@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/12 16:09:11 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/13 10:57:53 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_lst_env	*ls_env_new(char *name, char *value);
 void		ls_env_addfront(t_lst_env **lst, t_lst_env *new);
 void		ls_env_addback(t_lst_env **lst, t_lst_env *new);
 void		ls_env_clear(t_lst_env **lst);
+t_lst_env	**copy_env_lst(t_lst_env **env);
+t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str);
 
 t_lst_red	*ls_red_new(char *redirection, char *filename);
 void		ls_red_addfront(t_lst_red **lst, t_lst_red *new);
@@ -143,13 +145,11 @@ int			is_history_command(char *str);
 char		*prompt_get(t_data *data);
 int			not_closed(const char *str);
 int			print_return_error(char *str, int err_num, int fd);
+int			env_set_value(t_process *proc, char *name, char *value);
+int			num_quotes_in_env(char *str);
 
 int			is_id_invalid(char *str);
 void		sort_new_lst(t_lst_env **new);
 t_lst_env	*ls_exp_new(char *name, char *value);
-void		delete_env(t_process *proc, char *str);
-t_lst_env	**copy_env_lst(t_lst_env **env);
-t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str);
-int			env_set_value(t_process *proc, char *name, char *value);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
+#    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/12 11:10:48 by dfranke          ###   ########.fr        #
+#    Updated: 2022/08/13 10:47:41 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SRCS_NAMES	= 	main \
 				$(UTILS)ms_free_exit \
 				$(UTILS)ms_lst_str1 \
 				$(UTILS)ms_lst_str2 \
-				$(UTILS)ms_lst_env \
+				$(UTILS)ms_lst_env1 \
+				$(UTILS)ms_lst_env2 \
 				$(UTILS)ms_lst_red
 
 OBJS_PATH	= 	./obj/
