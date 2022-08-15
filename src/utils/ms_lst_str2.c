@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/13 10:34:22 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:32:52 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	**lst_str_to_strarray(t_lst_str **lst)
 	char		**arr;
 	int			i;
 
+	if (!(*lst))
+		return (NULL);
 	arr = malloc(sizeof(char *) * (ls_str_len(lst) + 1));
 	i = 0;
 	temp = *lst;

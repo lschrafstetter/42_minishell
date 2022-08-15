@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/13 10:57:53 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:57:52 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		remove_backslashes_before_quotes(char **str);
 /* EXECUTING */
 
 int			input_execute(t_data *data);
+int			set_redirections(t_process *proc);
 
 /* BUILTINS */
 

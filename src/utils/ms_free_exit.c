@@ -6,23 +6,27 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 14:26:54 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:17:47 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void free_str(char *str)
+void	free_str(char *str)
 {
 	if (str)
 		free(str);
 	str = NULL;
 }
 
-void free_process(t_process process)
+void	free_process(t_process	process)
 {
-	int i;
+	int	i;
 
+	if (process.fdin)
+		close(process.fdin);
+	if (process.fdout != 1)
+		close(process.fdout);
 	free_str(process.path);
 	if (process.ls_red)
 		ls_red_clear(process.ls_red);
@@ -40,10 +44,10 @@ void free_process(t_process process)
 	}
 }
 
-void data_free(t_data *data)
+void	data_free(t_data *data)
 {
 	if (!data)
-		return;
+		return ;
 	data_reset(data);
 	if (data->ls_env)
 		ls_env_clear(data->ls_env);
@@ -51,9 +55,9 @@ void data_free(t_data *data)
 	data = NULL;
 }
 
-void data_reset(t_data *data)
+void	data_reset(t_data *data)
 {
-	int i;
+	int	i;
 
 	if (data->processes)
 	{

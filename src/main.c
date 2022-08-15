@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 14:20:48 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:07:35 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	inputloop(t_data *data)
 		data->input = readline(data->prompt);
 		if (!(data->input))
 			break ;
-		while (not_closed(data->input))
+		add_history(data->input);
+		if (not_closed(data->input))
 		{
 			printf("Quotes not closed!\n");
-			free(data->input);
-			data->input = readline(data->prompt);
+			data_reset(data);
+			continue ;
 		}
-		add_history(data->input);
 		if (is_history_command(data->input))
 			rl_clear_history();
 		else

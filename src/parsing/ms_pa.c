@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 14:24:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:49:51 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 	ret.data = data;
 	ret.path = ft_strdup(ms_getenv(data, "PATH"));
 	ret.malloc_error = 0;
-	ret.fdin = 0;
-	ret.fdout = 1;
+	ret.fdin = STDIN_FILENO;
+	ret.fdout = STDOUT_FILENO;
 	ret.cmd = NULL;
 	ret.ls_red = malloc(sizeof(t_lst_red **));
 	ret.ls_cmd = malloc(sizeof(t_lst_str **));
