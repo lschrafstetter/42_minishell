@@ -6,28 +6,22 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 09:20:10 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:26:54 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_str(char *str)
+void free_str(char *str)
 {
 	if (str)
 		free(str);
 	str = NULL;
 }
 
-void	ms_exit(int exit_code, char *message)
+void free_process(t_process process)
 {
-	printf("%s", message);
-	exit(exit_code);
-}
-
-void	free_process(t_process	process)
-{
-	int	i;
+	int i;
 
 	free_str(process.path);
 	if (process.ls_red)
@@ -46,32 +40,23 @@ void	free_process(t_process	process)
 	}
 }
 
-void	data_free(t_data *data)
+void data_free(t_data *data)
 {
 	if (!data)
-		return ;
+		return;
+	data_reset(data);
 	if (data->ls_env)
 		ls_env_clear(data->ls_env);
-	if (data->input)
-		free_str(data->input);
-	if (data->prompt)
-		free_str(data->prompt);
 	free(data);
 	data = NULL;
 }
 
-void	ms_quit(t_data *data, int err)
+void data_reset(t_data *data)
 {
-	data_free(data);
-	ms_exit(err, "\n");
-}
-
-void	data_reset(t_data *data)
-{
-	int	i;
+	int i;
 
 	if (data->processes)
-	{	
+	{
 		i = 0;
 		while (i < data->n_processes)
 		{

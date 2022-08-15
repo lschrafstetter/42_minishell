@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/12 16:30:20 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:24:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	parse_subprocesses(t_data *data, t_lst_str **ls_pipes)
 	int	i;
 
 	data->n_processes = ls_str_len(ls_pipes);
-	data->processes = malloc(sizeof(t_process) * data->n_processes + 1);
+	data->processes = ft_calloc(data->n_processes + 1, sizeof(t_process));
 	if (!data->processes)
 		return (1);
 	i = 0;

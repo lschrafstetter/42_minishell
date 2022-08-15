@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/07 10:48:31 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:20:48 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	inputloop(t_data *data)
 		data->prompt = prompt_get(data);
 		data->input = readline(data->prompt);
 		if (!(data->input))
-			ms_quit(data, 0);
+			break ;
 		while (not_closed(data->input))
 		{
 			printf("Quotes not closed!\n");
@@ -33,9 +33,9 @@ void	inputloop(t_data *data)
 		else
 		{
 			if (input_parse(data))
-				ms_quit(data, 1);
+				break ;
 			if (input_execute(data))
-				ms_quit(data, 1);
+				break ;
 		}
 		data_reset(data);
 	}
@@ -47,11 +47,12 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	if (argc > 1)
-		ms_exit(1, "USAGE: <./minishell>\n");
+		return (print_return_error("USAGE: <./minishell>\n", 1, 1));
 	signalhandler_init();
 	data = datastruct_init(envp);
 	if (!data)
-		ms_exit(1, "Error initializing data struct\n");
+		return (print_return_error("Error initializing data struct\n", 1, 1));
 	inputloop(data);
+	data_free(data);
 	return (0);
 }
