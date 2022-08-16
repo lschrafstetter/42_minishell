@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 15:21:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:55:18 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	inputloop(t_data *data)
 {
-	rl_catch_signals = 0;
 	while (1)
 	{
 		data->prompt = prompt_get(data);
@@ -54,5 +53,6 @@ int	main(int argc, char **argv, char **envp)
 		return (print_return_error("Error initializing data struct\n", 1, 1));
 	inputloop(data);
 	data_free(data);
+	write(1, "\n", 1);
 	return (0);
 }

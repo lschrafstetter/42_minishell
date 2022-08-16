@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 15:59:55 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:54:06 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 	return (0);
 }
 
-/*static void	handler(int signum)
+static void	handler(int signum)
 {
 	(void) signum;
+	write(1, "\n", 1);
 	errno = 4;
 	exit(4);
-}*/
+}
 
 static int	set_here_doc(t_process *process, t_lst_red *redirection)
 {
@@ -64,16 +65,17 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 	int		status;
 	char	*str;
 
+	rl_catch_signals = 1;
 	if (pipe(fd) < 0)
 		return (1);
 	pid = fork();
 	if (!pid)
 	{
-		signal(SIGINT, SIG_DFL);
-		//signal(SIGINT, &handler);
+		signal(SIGINT, &handler);
 		str = get_next_line(STDIN_FILENO);
 		if (!str)
-			exit(print_return_error("minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
+			exit(print_return_error(\
+			"minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
 		while (ft_strncmp(str, redirection->file, \
 				ft_strlen(redirection->file) && \
 				!(str[ft_strlen(redirection->file)] == '\n')))
@@ -84,13 +86,17 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 			if (!str)
 			{
 				close(fd[1]);
-				exit(print_return_error("minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
+				exit(print_return_error(\
+				"minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
 			}
 		}
 		free(str);
 		exit(0);
 	}
+	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
+	signalhandler_init();
+	rl_catch_signals = 0;
 	close(fd[1]);
 	if (status)
 	{

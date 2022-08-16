@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 18:21:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 15:38:26 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:50:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(1, "^C\n", 3);
+		write(1, "\n", 1);
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
@@ -26,5 +26,5 @@ static void	handler(int signum)
 void	signalhandler_init(void)
 {
 	signal(SIGINT, &handler);
-	signal(SIGQUIT, &handler);
+	signal(SIGQUIT, SIG_IGN);
 }
