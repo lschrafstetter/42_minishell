@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/13 10:41:19 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:53:08 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ static void	replace_value(t_lst_env *node, char *str)
 	ft_strlcat(node->value, str, ft_strlen(str) + 1);
 }
 
-int	env_set_value(t_process *proc, char *name, char *value)
+int	env_set_value(t_data *data, char *name, char *value)
 {
 	t_lst_env	*temp;
 
 	if (is_id_invalid(name))
 		return (1);
-	temp = ls_env_contains_name(proc->data->ls_env, name);
+	temp = ls_env_contains_name(data->ls_env, name);
 	if (temp)
 	{
 		if (value)
 			replace_value(temp, value);
 	}
 	else
-		ls_env_addback(proc->data->ls_env, ls_env_new(name, value));
+		ls_env_addback(data->ls_env, ls_env_new(name, value));
 	return (0);
 }
 
@@ -82,9 +82,9 @@ int	ms_export(t_process *proc)
 		name = get_env_name(proc->cmd[i]);
 		value = ft_strchr(proc->cmd[i], '=');
 		if (value)
-			ret = env_set_value(proc, name, value + 1);
+			ret = env_set_value(proc->data, name, value + 1);
 		else
-			ret = env_set_value(proc, name, value);
+			ret = env_set_value(proc->data, name, value);
 		free_str(name);
 		i++;
 	}

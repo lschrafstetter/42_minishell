@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/06 10:44:23 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:46:06 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static void	expand_sort_red(t_process *process)
 	temp = *(process->ls_red);
 	while (temp)
 	{
-		str_expand(&(temp->filename), process);
-		if (contains_relevant_whitespace(temp->filename))
+		str_expand(&(temp->file), process);
+		if (contains_relevant_whitespace(temp->file))
 			temp->ambiguous_redirect = 1;
-		str_remove_quotes(&(temp->filename));
-		remove_backslashes_before_quotes(&(temp->filename));
+		str_remove_quotes(&(temp->file));
+		remove_backslashes_before_quotes(&(temp->file));
 		temp = temp->next;
 	}
 }

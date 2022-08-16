@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/13 10:57:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:45:43 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ static int	expand_dollar(int i, char **expanded, char *str, t_process *proc)
 	index = len_to_endofvar(&(str[i]));
 	helper[0] = ft_calloc(index + 1, 1);
 	ft_strlcat(helper[0], &(str[i]), index + 1);
-	helper[1] = ft_strdup(ms_getenv(proc->data, helper[0]));
+	if (!strncmp(helper[0], "?", 2))
+		helper[1] = ft_itoa(proc->data->exit_code);
+	else
+		helper[1] = ft_strdup(ms_getenv(proc->data, helper[0]));
 	n_quotes = num_quotes_in_env(helper[1]);
 	helper[2] = malloc(ft_strlen(helper[1]) + n_quotes + 1);
 	copy_without_backslashes(helper[1], helper[2]);

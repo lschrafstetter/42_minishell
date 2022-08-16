@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_data_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/12 10:49:07 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/16 13:55:14 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	env_init(char **envp, t_data *data)
 			free(tmp_name);
 		envp++;
 	}
+	env_set_value(data, "OLDPWD", NULL);
 	return (0);
 }
 

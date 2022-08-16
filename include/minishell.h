@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 16:57:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:02:15 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <sys/wait.h>
 
 /* LIST STRUCTS */
 
@@ -43,8 +44,8 @@ typedef struct s_lst_env
 typedef struct s_lst_red
 {
 	struct s_lst_red	*next;
-	char				*redirection;
-	char				*filename;
+	char				*red;
+	char				*file;
 	int					ambiguous_redirect;
 }	t_lst_red;
 
@@ -146,7 +147,7 @@ int			is_history_command(char *str);
 char		*prompt_get(t_data *data);
 int			not_closed(const char *str);
 int			print_return_error(char *str, int err_num, int fd);
-int			env_set_value(t_process *proc, char *name, char *value);
+int			env_set_value(t_data *data, char *name, char *value);
 int			num_quotes_in_env(char *str);
 
 int			is_id_invalid(char *str);

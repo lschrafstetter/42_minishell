@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 09:27:18 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/06/11 13:48:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:34:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static char	*read_into_memory(int fd, char *mem)
 	free(buf);
 	return (mem);
 }
+
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {

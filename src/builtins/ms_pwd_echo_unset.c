@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/15 18:18:02 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:14:50 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ms_echo(t_process *proc)
 	int	i;
 	int	is_nl;
 
+	if (!proc->cmd[1])
+		return (print_return_error("\n", 0, proc->fdout));
 	i = 1;
 	is_nl = 1;
 	if (!ft_strncmp(proc->cmd[i], "-n", 3))

@@ -6,23 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 09:27:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/06/04 20:49:02 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:05:43 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (*str++)
-		i++;
-	return (i);
-}
 
 size_t	ft_linelen(const char *str)
 {
@@ -60,17 +48,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	s2[i] = '\0';
 	return (s2);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (char) c)
-			return ((char *) s);
-		s++;
-	}
-	if (*s == c)
-		return ((char *)s);
-	return (NULL);
 }
