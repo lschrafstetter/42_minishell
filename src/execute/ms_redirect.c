@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 09:18:06 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 11:19:02 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (process->fdout == -1)
 		return (1);
+	printf("Redirection fdout: %i\n", process->fdout);
 	return (0);
 }
 

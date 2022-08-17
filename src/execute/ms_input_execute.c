@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 09:49:17 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 11:18:50 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ static void	execute_nonbuiltin(t_data *data)
 		{
 			dup2(data->processes->fdin, STDIN_FILENO);
 			dup2(data->processes->fdout, STDOUT_FILENO);
-			execve(data->processes->cmd[0], data->processes->cmd + 1, \
-																	data->env);
+			if (execve(data->processes->cmd[0], data->processes->cmd, \
+														NULL) == -1)
+				perror("Execve:");
+			exit(0);
 		}
 		waitpid(pid, &status, 0);
 	}
@@ -75,11 +77,11 @@ static void	execute_nonbuiltin(t_data *data)
 static int	execute_single_command(t_data *data)
 {
 	printf("Executing single command [%s]!\n", data->input);
-	if (*(data->processes[0].ls_red) && set_redirections(&(data->processes[0])))
+	if (data->processes[0].ls_red && set_redirections(&(data->processes[0])))
 		return (0);
-	if (!(data->processes->cmd))
+	if (!(data->processes[0].cmd))
 		return (0);
-	if (!ft_strncmp(data->processes->cmd[0], "exit", 5))
+	if (!ft_strncmp(data->processes[0].cmd[0], "exit", 5))
 		return (1);
 	if (check_builtins(data))
 		return (0);

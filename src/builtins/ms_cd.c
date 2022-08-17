@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 10:16:19 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 18:33:07 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 10:00:08 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	cd_no_params(t_process *proc)
 				ms_getenv(proc->data, "HOME"));
 		return (1);
 	}
-	env_set_value(proc, "OLDPWD", ms_getenv(proc->data, "PWD"));
-	env_set_value(proc, "PWD", ms_getenv(proc->data, "HOME"));
+	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));
+	env_set_value(proc->data, "PWD", ms_getenv(proc->data, "HOME"));
 	return (0);
 }
 
@@ -45,9 +45,9 @@ int	ms_cd(t_process *proc)
 				proc->cmd[1]);
 		return (1);
 	}
-	env_set_value(proc, "OLDPWD", ms_getenv(proc->data, "PWD"));
+	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));
 	cwd = getcwd(NULL, 0);
-	env_set_value(proc, "PWD", cwd);
+	env_set_value(proc->data, "PWD", cwd);
 	free_str(cwd);
 	return (0);
 }

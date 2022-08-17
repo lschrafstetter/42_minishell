@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/03 16:17:03 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 10:01:58 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_lst_red	*ls_red_new(char *redirection, char *filename)
 
 	new = malloc(sizeof(t_lst_red));
 	new->next = NULL;
-	new->redirection = ft_strdup(redirection);
-	new->filename = ft_strdup(filename);
+	new->red = ft_strdup(redirection);
+	new->file = ft_strdup(filename);
 	new->ambiguous_redirect = 0;
 	return (new);
 }
@@ -53,10 +53,10 @@ static void	ls_red_clearnodes(t_lst_red **lst)
 	if (*lst)
 	{
 		ls_red_clearnodes(&(*lst)->next);
-		if ((*lst)->redirection)
-			free((*lst)->redirection);
-		if ((*lst)->filename)
-			free((*lst)->filename);
+		if ((*lst)->red)
+			free((*lst)->red);
+		if ((*lst)->file)
+			free((*lst)->file);
 		free(*lst);
 		*lst = NULL;
 	}

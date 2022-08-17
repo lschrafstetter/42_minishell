@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/17 09:37:17 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 10:54:14 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	**lst_env_to_strarray(t_lst_env **lst)
 		helper = ft_strjoin(arr[i], temp->value);
 		free(arr[i]);
 		arr[i] = helper;
+		i++;
 		temp = temp->next;
 	}
 	arr[i] = NULL;
