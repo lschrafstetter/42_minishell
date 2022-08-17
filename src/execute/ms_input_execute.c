@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 13:10:15 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:49:17 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,31 @@ static int	check_builtins(t_data *data)
 	return (0);
 }
 
+static void	execute_nonbuiltin(t_data *data)
+{
+	int	pid;
+	int	status;
+
+	if (ft_strchr(data->processes->cmd[0], '/'))
+	{
+		if (access(data->processes->cmd[0], F_OK))
+		{
+			printf("Minishell: %s: No such file or directory\n", \
+													data->processes->cmd[0]);
+			return ;
+		}
+		pid = fork();
+		if (!pid)
+		{
+			dup2(data->processes->fdin, STDIN_FILENO);
+			dup2(data->processes->fdout, STDOUT_FILENO);
+			execve(data->processes->cmd[0], data->processes->cmd + 1, \
+																	data->env);
+		}
+		waitpid(pid, &status, 0);
+	}
+}
+
 static int	execute_single_command(t_data *data)
 {
 	printf("Executing single command [%s]!\n", data->input);
@@ -58,6 +83,7 @@ static int	execute_single_command(t_data *data)
 		return (1);
 	if (check_builtins(data))
 		return (0);
+	execute_nonbuiltin(data);
 	return (0);
 }
 
@@ -69,6 +95,7 @@ static int	execute_piped_command(t_data *data)
 
 int	input_execute(t_data *data)
 {
+	printf("Executing!\n");
 	if (data->n_processes == 0)
 		return (0);
 	if (data->n_processes == 1)

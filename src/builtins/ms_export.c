@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/16 13:53:08 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:51:52 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	env_set_value(t_data *data, char *name, char *value)
 	}
 	else
 		ls_env_addback(data->ls_env, ls_env_new(name, value));
+	if (data->env)
+		free(data->env);
+	data->env = lst_env_to_strarray(data->ls_env);
 	return (0);
 }
 
@@ -90,19 +93,3 @@ int	ms_export(t_process *proc)
 	}
 	return (ret);
 }
-
-/*
-Export alone sorts the entries of the env list and puts the values in double 
-quotes.
-
-1. add OLDPWD as NAME to new linked list
-2. oversee _=/usr/bin/env
-	- format the strings correctly, (add quotations & "declare -x ")
-	- declare -x EXAMPLE="this is example"
-3. Sort the list in the correct order (CAPITALS - underscore - lowercase)
-
-
-NUMBERS CAN BES ON THE SECOND COLUMN
-
-EXPORT LST BACKSLASH BEFOR DOUBLE QUOTE
-*/

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/16 13:14:50 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:50:51 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,8 @@ int	ms_unset(t_process *proc)
 		delete_env(proc, proc->cmd[i]);
 		i++;
 	}
+	if (proc->data->env)
+		free(proc->data->env);
+	proc->data->env = lst_env_to_strarray(proc->data->ls_env);
 	return (0);
 }

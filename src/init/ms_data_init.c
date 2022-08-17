@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 13:55:14 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:50:18 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	env_init(char **envp, t_data *data)
 		envp++;
 	}
 	env_set_value(data, "OLDPWD", NULL);
+	data->env = lst_env_to_strarray(data->ls_env);
 	return (0);
 }
 
@@ -68,6 +69,7 @@ t_data	*datastruct_init(char **envp)
 	data->input = NULL;
 	data->prompt = NULL;
 	data->processes = NULL;
+	data->env = NULL;
 	if (env_init(envp, data))
 	{
 		data_free(data);

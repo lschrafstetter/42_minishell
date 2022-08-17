@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 15:02:15 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:37:34 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 {
 	t_lst_env			**ls_env;
 	t_process			*processes;
+	char				**env;
 	char				*input;
 	char				*prompt;
 	int					n_processes;
@@ -96,6 +97,8 @@ void		ls_env_addback(t_lst_env **lst, t_lst_env *new);
 void		ls_env_clear(t_lst_env **lst);
 t_lst_env	**copy_env_lst(t_lst_env **env);
 t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str);
+int			ls_env_len(t_lst_env **lst);
+char		**lst_env_to_strarray(t_lst_env **lst);
 
 t_lst_red	*ls_red_new(char *redirection, char *filename);
 void		ls_red_addfront(t_lst_red **lst, t_lst_red *new);

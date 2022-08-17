@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_input_redirect.c                                :+:      :+:    :+:   */
+/*   ms_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 21:54:06 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:18:06 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 	process->fdin = open(redirection->file, O_RDONLY);
 	if (process->fdin == -1)
 		return (1);
+	printf("%i\n", process->fdin);
 	return (0);
 }
 
@@ -54,8 +55,7 @@ static void	handler(int signum)
 {
 	(void) signum;
 	write(1, "\n", 1);
-	errno = 4;
-	exit(4);
+	exit(130);
 }
 
 static int	set_here_doc(t_process *process, t_lst_red *redirection)
@@ -65,7 +65,6 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 	int		status;
 	char	*str;
 
-	rl_catch_signals = 1;
 	if (pipe(fd) < 0)
 		return (1);
 	pid = fork();
@@ -75,7 +74,7 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 		str = get_next_line(STDIN_FILENO);
 		if (!str)
 			exit(print_return_error(\
-			"minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
+			"minishell: here_doc exited with EOF!\n", 0, STDIN_FILENO));
 		while (ft_strncmp(str, redirection->file, \
 				ft_strlen(redirection->file) && \
 				!(str[ft_strlen(redirection->file)] == '\n')))
@@ -87,7 +86,7 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 			{
 				close(fd[1]);
 				exit(print_return_error(\
-				"minishell: here_doc exited with EOF!\n", 1, STDIN_FILENO));
+				"minishell: here_doc exited with EOF!\n", 0, STDIN_FILENO));
 			}
 		}
 		free(str);
@@ -96,11 +95,11 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	signalhandler_init();
-	rl_catch_signals = 0;
 	close(fd[1]);
 	if (status)
 	{
 		close(fd[0]);
+		process->data->exit_code = 130;
 		return (1);
 	}
 	process->fdin = fd[0];
@@ -135,11 +134,8 @@ int	set_redirections(t_process *proc)
 			temp = temp->next;
 			continue ;
 		}
-		if (!ft_strncmp(temp->red, "<<", 3) && set_here_doc(proc, temp))
-		{
-			temp = temp->next;
-			continue ;
-		}
+		if (!ft_strncmp(temp->red, "<<", 3))
+			return (set_here_doc(proc, temp));
 		temp = temp->next;
 	}
 	return (0);
