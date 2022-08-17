@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:29:18 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:42:19 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,13 @@ int	set_redirections(t_process *proc)
 	{
 		if (temp->ambiguous_redirect)
 		{
-			ft_putstr_fd("Ambiguous redirect!\n", 1);
+			ft_putstr_fd("Ambiguous redirect!\n", 2);
 			temp = temp->next;
 			continue ;
 		}
-		if (!ft_strncmp(temp->red, "<", 2) && set_in_red(proc, temp))
-		{
-			temp = temp->next;
-			continue ;
-		}
-		if (!ft_strncmp(temp->red, ">", 2) && set_out_red(proc, temp, 0))
-		{
-			temp = temp->next;
-			continue ;
-		}
-		if (!ft_strncmp(temp->red, ">>", 3) && set_out_red(proc, temp, 1))
+		if ((!ft_strncmp(temp->red, "<", 2) && set_in_red(proc, temp)) \
+			|| (!ft_strncmp(temp->red, ">", 2) && set_out_red(proc, temp, 0)) \
+			|| (!ft_strncmp(temp->red, ">>", 3) && set_out_red(proc, temp, 1)))
 		{
 			temp = temp->next;
 			continue ;
