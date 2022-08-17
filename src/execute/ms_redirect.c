@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 11:19:02 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:29:18 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (process->fdout == -1)
 		return (1);
-	printf("Redirection fdout: %i\n", process->fdout);
 	return (0);
 }
 
@@ -68,17 +67,19 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 
 	if (pipe(fd) < 0)
 		return (1);
+	printf("fd[0]: %i fd[1]: %i\n", fd[0], fd[1]);
 	pid = fork();
 	if (!pid)
 	{
+		close(fd[0]);
 		signal(SIGINT, &handler);
 		str = get_next_line(STDIN_FILENO);
 		if (!str)
 			exit(print_return_error(\
-			"minishell: here_doc exited with EOF!\n", 0, STDIN_FILENO));
-		while (ft_strncmp(str, redirection->file, \
-				ft_strlen(redirection->file) && \
-				!(str[ft_strlen(redirection->file)] == '\n')))
+			"minishell: here_doc exited with EOF!\n", 1, STDERR_FILENO));
+		while (ft_strncmp(str, redirection->file, ft_strlen(redirection->file)) \
+				|| str[strlen(redirection->file)] != '\n' \
+				|| str[strlen(redirection->file) + 1] != '\0')
 		{
 			write(fd[1], str, ft_strlen(str));
 			free(str);
@@ -87,22 +88,33 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 			{
 				close(fd[1]);
 				exit(print_return_error(\
-				"minishell: here_doc exited with EOF!\n", 0, STDIN_FILENO));
+				"minishell: here_doc exited with EOF!\n", 1, STDERR_FILENO));
 			}
 		}
+		close(fd[1]);
 		free(str);
 		exit(0);
 	}
+	close(fd[1]);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	signalhandler_init();
-	close(fd[1]);
 	if (status)
 	{
-		close(fd[0]);
-		process->data->exit_code = 130;
-		return (1);
+		if (status == 33280)
+		{
+			close(fd[0]);
+			process->data->exit_code = 130;
+			return (1);
+		}
+		else
+		{
+			process->data->exit_code = 0;
+			return (0);
+		}
 	}
+	if (process->fdin)
+		close(process->fdin);
 	process->fdin = fd[0];
 	return (0);
 }
@@ -136,7 +148,12 @@ int	set_redirections(t_process *proc)
 			continue ;
 		}
 		if (!ft_strncmp(temp->red, "<<", 3))
-			return (set_here_doc(proc, temp));
+		{
+			if (set_here_doc(proc, temp))
+				return (1);
+			temp = temp->next;
+			continue ;
+		}
 		temp = temp->next;
 	}
 	return (0);

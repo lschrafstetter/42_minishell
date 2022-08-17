@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 11:18:50 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:29:27 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static int	execute_piped_command(t_data *data)
 
 int	input_execute(t_data *data)
 {
-	printf("Executing!\n");
 	if (data->n_processes == 0)
 		return (0);
 	if (data->n_processes == 1)

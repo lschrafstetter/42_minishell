@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/15 18:17:47 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:22:58 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,25 @@ void	free_str(char *str)
 	str = NULL;
 }
 
-void	free_process(t_process	process)
+void	free_strarray(char **arr)
 {
 	int	i;
 
+	if (arr)
+	{
+		i = 0;
+		while (arr[i])
+		{
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
+		arr = NULL;
+	}
+}
+
+void	free_process(t_process	process)
+{
 	if (process.fdin)
 		close(process.fdin);
 	if (process.fdout != 1)
@@ -32,16 +47,7 @@ void	free_process(t_process	process)
 		ls_red_clear(process.ls_red);
 	if (process.ls_cmd)
 		ls_str_clear(process.ls_cmd);
-	if (process.cmd)
-	{
-		i = 0;
-		while (process.cmd[i])
-		{
-			free(process.cmd[i]);
-			i++;
-		}
-		free(process.cmd);
-	}
+	free_strarray(process.cmd);
 }
 
 void	data_free(t_data *data)
@@ -51,6 +57,7 @@ void	data_free(t_data *data)
 	data_reset(data);
 	if (data->ls_env)
 		ls_env_clear(data->ls_env);
+	free_strarray(data->env);
 	free(data);
 	data = NULL;
 }

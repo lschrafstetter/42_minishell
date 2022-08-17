@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/17 09:51:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:07:26 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	env_set_value(t_data *data, char *name, char *value)
 	else
 		ls_env_addback(data->ls_env, ls_env_new(name, value));
 	if (data->env)
-		free(data->env);
+		free_strarray(data->env);
 	data->env = lst_env_to_strarray(data->ls_env);
 	return (0);
 }
