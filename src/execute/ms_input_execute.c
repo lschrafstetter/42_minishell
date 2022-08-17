@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input_execute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:29:27 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:20:12 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,40 @@ static int	check_builtins(t_data *data)
 	return (0);
 }
 
+char	*build_cmd_path(t_data *data)
+{
+	int		i;
+	char	**paths;
+	char	*helper;
+
+	paths = ft_split(ms_getenv(data, "PATH"), ':');
+	i = 0;
+	while (paths[i])
+	{
+		helper = ft_strthreejoin(paths[i], "/", data->processes[0].cmd[0]);
+		if (!access(helper, F_OK))
+			break ;
+		free_str(helper);
+		i++;
+	}
+	if (!helper)
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(data->processes[0].cmd[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		return (NULL);
+	}
+	if (access(helper, F_OK))
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(helper, 2);
+		ft_putendl_fd(": Permission denied", 2);
+		free_str(helper);
+		return (NULL);
+	}
+	return (helper);
+}
+
 static void	execute_nonbuiltin(t_data *data)
 {
 	int	pid;
@@ -71,6 +105,24 @@ static void	execute_nonbuiltin(t_data *data)
 			exit(0);
 		}
 		waitpid(pid, &status, 0);
+	}
+	else
+	{
+		data->processes[0].path = build_cmd_path(data);
+		if (data->processes[0].path)
+		{
+			pid = fork();
+			if (!pid)
+			{
+				dup2(data->processes->fdin, STDIN_FILENO);
+				dup2(data->processes->fdout, STDOUT_FILENO);
+				if (execve(data->processes->path, data->processes->cmd, \
+															NULL) == -1)
+					perror("Execve:");
+				exit(0);
+			}
+			waitpid(pid, &status, 0);
+		}
 	}
 }
 

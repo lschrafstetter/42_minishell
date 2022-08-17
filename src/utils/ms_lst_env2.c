@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst_env2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/17 10:54:14 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:57:35 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	**lst_env_to_strarray(t_lst_env **lst)
 {
 	t_lst_env	*temp;
 	char		**arr;
-	char		*helper;
 	int			i;
 
 	if (!(*lst))
@@ -47,11 +46,7 @@ char	**lst_env_to_strarray(t_lst_env **lst)
 	temp = *lst;
 	while (temp)
 	{
-		arr[i] = ft_strjoin(temp->name, "=");
-		helper = ft_strjoin(arr[i], temp->value);
-		free(arr[i]);
-		arr[i] = helper;
-		i++;
+		arr[i++] = ft_strthreejoin(temp->name, "=", temp->value);
 		temp = temp->next;
 	}
 	arr[i] = NULL;
