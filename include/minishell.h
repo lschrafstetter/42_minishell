@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:08:45 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:39:56 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int			ms_unset(t_process *proc);
 void		ms_quit(t_data *data, int err);
 void		ms_exit(int err, char *message);
 void		data_free(t_data *data);
-void		free_str(char *str);
+void		free_str(char **str);
 void		free_strarray(char **arr);
 void		free_process(t_process	process);
 void		data_reset(t_data *data);

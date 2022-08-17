@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 10:16:19 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 10:00:08 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:40:51 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	ms_cd(t_process *proc)
 	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));
 	cwd = getcwd(NULL, 0);
 	env_set_value(proc->data, "PWD", cwd);
-	free_str(cwd);
+	free_str(&cwd);
 	return (0);
 }

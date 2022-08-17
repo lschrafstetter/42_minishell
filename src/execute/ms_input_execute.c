@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:27:00 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:40:09 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,17 @@ char	*build_cmd_path(t_data *data)
 	char	*helper;
 
 	paths = ft_split(ms_getenv(data, "PATH"), ':');
+	helper = NULL;
 	i = 0;
 	while (paths[i])
 	{
 		helper = ft_strthreejoin(paths[i], "/", data->processes[0].cmd[0]);
 		if (!access(helper, F_OK))
 			break ;
-		free_str(helper);
+		free_str(&helper);
 		i++;
 	}
+	free_strarray(paths);
 	if (!helper)
 	{
 		ft_putstr_fd("Minishell: ", 2);
@@ -75,7 +77,7 @@ char	*build_cmd_path(t_data *data)
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(helper, 2);
 		ft_putendl_fd(": Permission denied", 2);
-		free_str(helper);
+		free_str(&helper);
 		return (NULL);
 	}
 	return (helper);

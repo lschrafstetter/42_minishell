@@ -6,17 +6,17 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:22:58 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:41:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_str(char *str)
+void	free_str(char **str)
 {
-	if (str)
-		free(str);
-	str = NULL;
+	if (*str)
+		free(*str);
+	*str = NULL;
 }
 
 void	free_strarray(char **arr)
@@ -42,7 +42,7 @@ void	free_process(t_process	process)
 		close(process.fdin);
 	if (process.fdout != 1)
 		close(process.fdout);
-	free_str(process.path);
+	free_str(&(process.path));
 	if (process.ls_red)
 		ls_red_clear(process.ls_red);
 	if (process.ls_cmd)
@@ -77,6 +77,6 @@ void	data_reset(t_data *data)
 	}
 	free(data->processes);
 	data->processes = NULL;
-	free_str(data->input);
-	free_str(data->prompt);
+	free_str(&(data->input));
+	free_str(&(data->prompt));
 }
