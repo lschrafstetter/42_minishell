@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_input_execute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:20:12 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/17 15:27:00 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*build_cmd_path(t_data *data)
 		ft_putendl_fd(": command not found", 2);
 		return (NULL);
 	}
-	if (access(helper, F_OK))
+	if (access(helper, X_OK))
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(helper, 2);
