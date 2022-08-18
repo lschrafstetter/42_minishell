@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst_env2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/17 14:57:35 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/18 15:32:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ char	**lst_env_to_strarray(t_lst_env **lst)
 	temp = *lst;
 	while (temp)
 	{
-		arr[i++] = ft_strthreejoin(temp->name, "=", temp->value);
+		if (temp->value)
+			arr[i++] = ft_strthreejoin(temp->name, "=", temp->value);
+		else
+			arr[i++] = ft_strdup(temp->name);
 		temp = temp->next;
 	}
 	arr[i] = NULL;

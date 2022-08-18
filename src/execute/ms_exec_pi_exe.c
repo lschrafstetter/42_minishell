@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 14:48:16 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:27:01 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	execute_nonbuiltin(t_process *process)
 			return (errno);
 		}
 	}
-	
 	return (1);
 }
 
