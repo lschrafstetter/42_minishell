@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:43:48 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 09:43:56 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int	parse_subprocesses(t_data *data, t_lst_str **ls_pipes)
 	while (i < data->n_processes)
 	{
 		data->processes[i] = process_init(data, ls_str_getindex(ls_pipes, i));
+		data->processes[i].index = i;
 		if (data->processes[i].malloc_error)
 		{
 			i = 0;

@@ -6,7 +6,7 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/17 08:42:20 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/18 14:03:46 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,10 @@ SRCS_NAMES	= 	main \
 				$(BUILTINS)ms_pwd_echo_unset \
 				$(EXECUTE)ms_input_execute \
 				$(EXECUTE)ms_redirect \
+				$(EXECUTE)ms_exec_single \
+				$(EXECUTE)ms_exec_piped \
+				$(EXECUTE)ms_exec_pi_exe \
+				$(EXECUTE)ms_exec_utils \
 				$(INIT)ms_data_init \
 				$(INIT)ms_signaling \
 				$(PARSING)ms_pa \

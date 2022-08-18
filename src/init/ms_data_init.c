@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:24:14 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:18:29 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_data	*datastruct_init(char **envp)
 	data->prompt = NULL;
 	data->processes = NULL;
 	data->env = NULL;
+	data->pipe_fd = NULL;
 	if (env_init(envp, data))
 	{
 		data_free(data);

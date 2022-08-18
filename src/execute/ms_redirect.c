@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:42:19 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:55:24 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 		printf("Minishell: %s: Permission denied\n", redirection->file);
 		return (1);
 	}
+	if (process->fdin != 0 \
+		|| (process->data->n_processes > 1 && process->fdin != 0))
+		close(process->fdin);
 	process->fdin = open(redirection->file, O_RDONLY);
 	if (process->fdin == -1)
 		return (1);
-	printf("%i\n", process->fdin);
 	return (0);
 }
 
@@ -40,6 +42,9 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 		printf("Minishell: %s: Permission denied\n", redirection->file);
 		return (1);
 	}
+	if (process->fdout != 1 \
+		|| (process->data->n_processes > 1 && process->fdout != 1))
+		close(process->fdout);
 	if (append)
 		process->fdout = open(redirection->file, \
 					O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -67,16 +72,20 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 
 	if (pipe(fd) < 0)
 		return (1);
-	printf("fd[0]: %i fd[1]: %i\n", fd[0], fd[1]);
 	pid = fork();
 	if (!pid)
 	{
+		process_fds_close(process->data);
+		pipes_close(process->data, -1);
 		close(fd[0]);
 		signal(SIGINT, &handler);
 		str = get_next_line(STDIN_FILENO);
 		if (!str)
+		{
+			close(fd[1]);
 			exit(print_return_error(\
 			"minishell: here_doc exited with EOF!\n", 1, STDERR_FILENO));
+		}
 		while (ft_strncmp(str, redirection->file, ft_strlen(redirection->file)) \
 				|| str[strlen(redirection->file)] != '\n' \
 				|| str[strlen(redirection->file) + 1] != '\0')
@@ -109,11 +118,13 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 		}
 		else
 		{
+			close(fd[0]);
 			process->data->exit_code = 0;
 			return (0);
 		}
 	}
-	if (process->fdin)
+	if (process->fdin != 0 \
+		|| (process->data->n_processes > 1 && process->fdin != 0))
 		close(process->fdin);
 	process->fdin = fd[0];
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:41:37 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:18:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,20 @@ void	data_reset(t_data *data)
 			free_process(data->processes[i]);
 			i++;
 		}
+		free(data->processes);
+		data->processes = NULL;
 	}
-	free(data->processes);
-	data->processes = NULL;
+	if (data->pipe_fd)
+	{
+		i = 0;
+		while (data->pipe_fd[i])
+		{
+			free(data->pipe_fd[i]);
+			i++;
+		}
+		free(data->pipe_fd);
+		data->pipe_fd = NULL;
+	}
 	free_str(&(data->input));
 	free_str(&(data->prompt));
 }

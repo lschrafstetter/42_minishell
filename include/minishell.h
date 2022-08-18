@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:39:56 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:29:08 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_process
 	int					malloc_error;
 	int					fdin;
 	int					fdout;
+	int					index;
 	char				**cmd;
 	t_lst_red			**ls_red;
 	t_lst_str			**ls_cmd;
@@ -72,6 +73,7 @@ typedef struct s_data
 	char				**env;
 	char				*input;
 	char				*prompt;
+	int					**pipe_fd;
 	int					n_processes;
 	int					exit_code;
 }	t_data;
@@ -127,6 +129,12 @@ void		remove_backslashes_before_quotes(char **str);
 
 int			input_execute(t_data *data);
 int			set_redirections(t_process *proc);
+void		pipes_close(t_data *data, int index);
+int			execute_single_command(t_data *data);
+int			execute_piped_command(t_data *data);
+void		execute_piped_process(t_process *process);
+void		process_fds_close(t_data *data);
+char		*build_cmd_path(t_process *process);
 
 /* BUILTINS */
 
