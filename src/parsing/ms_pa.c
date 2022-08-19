@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 09:43:56 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:52:28 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	sort_cmd_red(t_lst_str **ls, t_process *proc)
 			temp = temp->next;
 			if (!temp->next)
 				break ;
-		}
+		}//////////////// insert Redirection without whitespace conditional here (split right away?)
 		else
 			ls_str_addback(proc->ls_cmd, ls_str_new(temp->str));
 		temp = temp->next;
