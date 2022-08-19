@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 17:21:49 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:54:42 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,25 @@ static int	check_builtins(t_process *process)
 
 static int	execute_nonbuiltin(t_process *process)
 {
-	if (ft_strchr(process->cmd[0], '/'))
+	DIR	*temp_dir;
+
+	if (ft_strchr(process->cmd[0], '/') \
+		|| !ft_strncmp(process->cmd[0], ".", 2))
 	{
+		temp_dir = opendir(process->cmd[0]);
+		if (temp_dir)
+		{
+			closedir(temp_dir);
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(process->cmd[0], 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			return (1);
+		}
 		if (access(process->cmd[0], F_OK))
 		{
-			printf("Minishell: %s: No such file or directory\n", \
-													process->cmd[0]);
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(process->cmd[0], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 			return (1);
 		}
 		if (execve(process->cmd[0], process->cmd, \

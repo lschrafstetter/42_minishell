@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 17:22:08 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:55:36 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,25 @@ static void	execute_nonbuiltin(t_data *data)
 {
 	int	pid;
 	int	status;
+	DIR	*temp_dir;
 
-	if (ft_strchr(data->processes->cmd[0], '/'))
+	if (ft_strchr(data->processes->cmd[0], '/') \
+		|| !ft_strncmp(data->processes->cmd[0], ".", 2))
 	{
+		temp_dir = opendir(data->processes->cmd[0]);
+		if (temp_dir)
+		{
+			closedir(temp_dir);
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(data->processes->cmd[0], 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			return ;
+		}
 		if (access(data->processes->cmd[0], F_OK))
 		{
-			printf("Minishell: %s: No such file or directory\n", \
-													data->processes->cmd[0]);
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(data->processes->cmd[0], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 			return ;
 		}
 		pid = fork();
