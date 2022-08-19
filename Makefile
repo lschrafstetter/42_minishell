@@ -6,14 +6,14 @@
 #    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/18 14:03:46 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/19 14:28:34 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= 	minishell
 
 COMPILER 	= 	cc
-CFLAGS 		= 	-Wall -Wextra -Werror -g
+CFLAGS 		= 	-Wall -Wextra -Werror
 
 MYLIBS 		= 	libft/libft.a
 LIBS 		= 	-lreadline
