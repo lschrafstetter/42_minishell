@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 15:06:48 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:34:40 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int			execute_piped_command(t_data *data);
 void		execute_piped_process(t_process *process);
 void		process_fds_close(t_data *data, int index_exclude);
 char		*build_cmd_path(t_process *process);
+void		set_underscore(t_data *data);
 
 /* BUILTINS */
 

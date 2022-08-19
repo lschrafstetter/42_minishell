@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 15:21:09 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:21:49 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	execute_nonbuiltin(t_process *process)
 			return (1);
 		}
 		if (execve(process->cmd[0], process->cmd, \
-													NULL) == -1)
+													process->data->env) == -1)
 			perror("Execve:");
 		return (errno);
 	}
@@ -62,7 +62,7 @@ static int	execute_nonbuiltin(t_process *process)
 		if (process->path)
 		{
 			if (execve(process->path, process->cmd, \
-														NULL) == -1)
+													process->data->env) == -1)
 				perror("Execve:");
 			return (errno);
 		}

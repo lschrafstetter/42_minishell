@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:52:25 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 15:05:57 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:43:19 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void	pipes_close(t_data *data, int index_exclude)
 			close(data->pipe_fd[i][0]);
 		if (!(index_exclude == i))
 			close(data->pipe_fd[i][1]);
+		i++;
+	}
+}
+
+void	set_underscore(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->processes[0].cmd[i])
+	{
+		if (!*(data->processes[0].cmd + i + 2))
+			env_set_value(data, "_", data->processes[0].cmd[i + 1]);
 		i++;
 	}
 }

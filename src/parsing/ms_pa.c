@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 14:45:49 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:45:22 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	sort_cmd_red(t_lst_str **ls, t_process *proc)
 			|| ft_strncmp(temp->str, ">", 2) == 0 \
 			|| ft_strncmp(temp->str, ">>", 3) == 0)
 		{
+			if (!temp->next)
+				break ;
 			ls_red_addback(proc->ls_red, \
 							ls_red_new(temp->str, temp->next->str));
 			temp = temp->next;

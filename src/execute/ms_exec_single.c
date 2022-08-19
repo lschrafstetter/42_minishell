@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 14:56:26 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:22:08 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	execute_nonbuiltin(t_data *data)
 			dup2(data->processes->fdin, STDIN_FILENO);
 			dup2(data->processes->fdout, STDOUT_FILENO);
 			if (execve(data->processes->cmd[0], data->processes->cmd, \
-														NULL) == -1)
+														data->env) == -1)
 				perror("Execve:");
 			exit(0);
 		}
@@ -119,7 +119,7 @@ static void	execute_nonbuiltin(t_data *data)
 				dup2(data->processes->fdin, STDIN_FILENO);
 				dup2(data->processes->fdout, STDOUT_FILENO);
 				if (execve(data->processes->path, data->processes->cmd, \
-															NULL) == -1)
+															data->env) == -1)
 					perror("Execve:");
 				exit(0);
 			}
@@ -137,7 +137,11 @@ int	execute_single_command(t_data *data)
 	if (!ft_strncmp(data->processes[0].cmd[0], "exit", 5))
 		return (1);
 	if (check_builtins(data))
+	{
+		set_underscore(data);
 		return (0);
+	}
 	execute_nonbuiltin(data);
+	set_underscore(data);
 	return (0);
 }
