@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 14:55:24 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:39:13 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 
 static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 {
+	int	temp_fd;
+
 	if (!access(redirection->file, F_OK) && \
 		access(redirection->file, W_OK))
 	{
@@ -46,13 +48,14 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 		|| (process->data->n_processes > 1 && process->fdout != 1))
 		close(process->fdout);
 	if (append)
-		process->fdout = open(redirection->file, \
+		temp_fd = open(redirection->file, \
 					O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
-		process->fdout = open(redirection->file, \
+		temp_fd = open(redirection->file, \
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (process->fdout == -1)
+	if (temp_fd == -1)
 		return (1);
+	process->fdout = temp_fd;
 	return (0);
 }
 
@@ -75,7 +78,7 @@ static int	set_here_doc(t_process *process, t_lst_red *redirection)
 	pid = fork();
 	if (!pid)
 	{
-		process_fds_close(process->data);
+		process_fds_close(process->data, -1);
 		pipes_close(process->data, -1);
 		close(fd[0]);
 		signal(SIGINT, &handler);

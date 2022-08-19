@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:03:56 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 14:51:00 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:47:41 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strthreejoin(char const *s1, char const *s2, char const *s3);
+char			*ft_strthreejoin(char const *s1, char const *s2, \
+									char const *s3);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));

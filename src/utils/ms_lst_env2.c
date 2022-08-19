@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:54:23 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/18 15:32:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:47:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_lst_env	*ls_env_contains_name(t_lst_env **lst, char *str)
 	free(name);
 	return (NULL);
 }
-
 
 char	**lst_env_to_strarray(t_lst_env **lst)
 {

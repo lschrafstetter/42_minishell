@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:06:36 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 14:55:33 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:08:04 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	pipes_init(t_data *data)
 	data->pipe_fd[i] = NULL;
 	return (0);
 }
-
 
 static int	redirects_set(t_data *data)
 {
@@ -69,7 +68,7 @@ static void	processes_exec(t_data *data)
 		i++;
 	}
 	pipes_close(data, -1);
-	process_fds_close(data);
+	process_fds_close(data, -1);
 	i = 0;
 	while (i < data->n_processes)
 	{

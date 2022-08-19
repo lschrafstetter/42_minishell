@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 11:15:33 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:21:09 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ static int	check_builtins(t_process *process)
 		ret = ms_unset(process);
 	if (ret != -1)
 	{
-		if (process->fdin != 0)
+		if (process->fdin != STDIN_FILENO)
 			close(process->fdin);
-		if (process->fdout != 1)
+		if (process->fdout != STDOUT_FILENO)
 			close(process->fdout);
+		pipes_close(process->data, -1);
 		return (ret);
 	}
 	return (-1);
@@ -73,19 +74,14 @@ void	execute_piped_process(t_process *process)
 {
 	int	ret;
 
+	if (!(process->cmd) || !ft_strncmp(process->cmd[0], "exit", 5))
+	{
+		pipes_close(process->data, -1);
+		process_fds_close(process->data, -1);
+		exit(0);
+	}
 	pipes_close(process->data, process->index);
-	if (!(process->cmd))
-	{
-		pipes_close(process->data, -1);
-		process_fds_close(process->data);
-		exit(0);
-	}
-	if (!ft_strncmp(process->cmd[0], "exit", 5))
-	{
-		pipes_close(process->data, -1);
-		process_fds_close(process->data);
-		exit(0);
-	}
+	process_fds_close(process->data, process->index);
 	dup2(process->fdin, STDIN_FILENO);
 	dup2(process->fdout, STDOUT_FILENO);
 	ret = check_builtins(process);
