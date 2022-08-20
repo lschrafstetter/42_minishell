@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 18:08:24 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:42:30 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	execute_single_command(t_data *data)
 {
 	if (data->processes[0].ls_red && set_redirections(&(data->processes[0])))
 		return (0);
-	if (!(data->processes[0].cmd))
+	if (!(data->processes[0].cmd) || data->processes[0].failed_red)
 		return (0);
 	if (check_builtins(data))
 	{

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 21:54:10 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:41:59 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,16 @@ int	set_redirections(t_process *proc)
 		{
 			print_error(temp->file, NULL, ": Ambiguous redirect!");
 			proc->data->exit_code = 1;
+			proc->failed_red = 1;
 			return (0);
 		}
 		else if ((!ft_strncmp(temp->red, "<", 2) && set_in_red(proc, temp)) \
 			|| (!ft_strncmp(temp->red, ">", 2) && set_out_red(proc, temp, 0)) \
 			|| (!ft_strncmp(temp->red, ">>", 3) && set_out_red(proc, temp, 1)))
-			;
+		{
+			proc->failed_red = 1;
+			return (0);
+		}
 		else if (!ft_strncmp(temp->red, "<<", 3))
 			if (set_here_doc(proc, temp))
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 21:36:19 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:10:03 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,13 @@ static void	execute_path(t_data *data, int *pid, int *status)
 		execve(data->processes->cmd[0], data->processes->cmd, data->env);
 		exit(errno);
 	}
+	signal(SIGINT, SIG_IGN);
 	waitpid(*pid, status, 0);
+	if (WIFSIGNALED(*status))
+		data->exit_code = 130;
+	else
+		data->exit_code = *status / 256;
+	signalhandler_init();
 }
 
 void	execute_single_nonbuiltin(t_data *data)
@@ -115,6 +121,10 @@ void	execute_single_nonbuiltin(t_data *data)
 			}
 			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
+			if (WIFSIGNALED(status))
+				data->exit_code = 130;
+			else
+				data->exit_code = status / 256;
 			signalhandler_init();
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 22:06:33 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:31:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ typedef struct s_lst_red
 
 typedef struct s_process
 {
-	int					malloc_error;
 	int					fdin;
 	int					fdout;
 	int					index;
+	int					failed_red;
 	char				**cmd;
 	t_lst_red			**ls_red;
 	t_lst_str			**ls_cmd;

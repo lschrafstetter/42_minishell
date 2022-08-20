@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 16:49:05 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:33:57 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,12 @@ static t_process	process_init(t_data *data, t_lst_str *str)
 
 	ret.data = data;
 	ret.path = NULL;
-	ret.malloc_error = 0;
 	ret.fdin = STDIN_FILENO;
 	ret.fdout = STDOUT_FILENO;
 	ret.cmd = NULL;
+	ret.failed_red = 0;
 	ret.ls_red = malloc(sizeof(t_lst_red **));
 	ret.ls_cmd = malloc(sizeof(t_lst_str **));
-	if (!ret.ls_cmd || !ret.ls_red || !str)
-	{
-		ret.malloc_error = 1;
-		return (ret);
-	}
 	*(ret.ls_red) = NULL;
 	*(ret.ls_cmd) = NULL;
 	temp = parse_for_whitespace(str->str);
@@ -112,17 +107,6 @@ static int	parse_subprocesses(t_data *data, t_lst_str **ls_pipes)
 	{
 		data->processes[i] = process_init(data, ls_str_getindex(ls_pipes, i));
 		data->processes[i].index = i;
-		if (data->processes[i].malloc_error)
-		{
-			i = 0;
-			while (i < data->n_processes)
-			{
-				free_process(data->processes[i]);
-				i++;
-			}
-			free(data->processes);
-			return (1);
-		}
 		i++;
 	}
 	return (0);
