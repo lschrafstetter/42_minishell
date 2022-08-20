@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 11:57:08 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:45:09 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static int	len_to_closing_quote(char *str, char quote)
 			i++;
 		if (quote == '\'' && (str[i] == '\\' && str[i + 1] == '"'))
 			i++;
-		/*if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '"'))
-			i++;*/
 		i++;
 	}
 	return (i);
@@ -74,7 +72,6 @@ static int	add_quoted_part(int i, char **cleaned, char *str, char quote)
 	char	*helper2;
 	int		len;
 
-	//i++;
 	if (str[i] == quote)
 		i++;
 	len = len_to_closing_quote(&(str[i]), quote);

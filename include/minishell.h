@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 15:23:16 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/20 18:33:44 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,16 @@ void		str_expand(char **str, t_process *process);
 void		str_remove_quotes(char **str);
 void		expand_list_by_whitespace(t_lst_str **node);
 void		remove_bs_before_quotes(char **str);
+int			expand_tilde(int i, char **expanded, t_process *proc);
 
 /* EXECUTING */
 
 int			input_execute(t_data *data);
 int			set_redirections(t_process *proc);
+int			set_here_doc(t_process *process, t_lst_red *redirection);
 void		pipes_close(t_data *data, int index_exclude);
 int			execute_single_command(t_data *data);
+void		execute_single_nonbuiltin(t_data *data);
 int			execute_piped_command(t_data *data);
 void		execute_piped_process(t_process *process);
 void		process_fds_close(t_data *data, int index_exclude);
@@ -145,11 +148,10 @@ int			ms_export(t_process *proc);
 int			ms_pwd(t_process *proc);
 int			ms_echo(t_process *proc);
 int			ms_unset(t_process *proc);
+int			ms_exit(t_process *process);	
 
 /* UTILS */
 
-void		ms_quit(t_data *data, int err);
-void		ms_exit(int err, char *message);
 void		data_free(t_data *data);
 void		free_str(char **str);
 void		free_strarray(char **arr);

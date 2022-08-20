@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
+#    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/20 14:51:40 by dfranke          ###   ########.fr        #
+#    Updated: 2022/08/20 18:03:25 by lschrafs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,17 @@ SRCS_NAMES	= 	main \
 				$(BUILTINS)ms_builtins_utils2 \
 				$(BUILTINS)ms_cd \
 				$(BUILTINS)ms_env \
+				$(BUILTINS)ms_exit \
 				$(BUILTINS)ms_export \
 				$(BUILTINS)ms_pwd_echo_unset \
 				$(EXECUTE)ms_input_execute \
 				$(EXECUTE)ms_redirect \
 				$(EXECUTE)ms_exec_single \
+				$(EXECUTE)ms_exec_si_exe \
 				$(EXECUTE)ms_exec_piped \
 				$(EXECUTE)ms_exec_pi_exe \
 				$(EXECUTE)ms_exec_utils \
+				$(EXECUTE)ms_heredoc \
 				$(INIT)ms_data_init \
 				$(INIT)ms_signaling \
 				$(PARSING)ms_pa \
@@ -47,7 +50,8 @@ SRCS_NAMES	= 	main \
 				$(PARSING)ms_pa_exp_lst \
 				$(PARSING)ms_pa_utils1 \
 				$(PARSING)ms_pa_utils2 \
-				$(UTILS)ms_utils \
+				$(UTILS)ms_utils1 \
+				$(UTILS)ms_utils2 \
 				$(UTILS)ms_error_printer \
 				$(UTILS)ms_free_exit \
 				$(UTILS)ms_lst_str1 \

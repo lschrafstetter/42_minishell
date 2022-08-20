@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_utils.c                                         :+:      :+:    :+:   */
+/*   ms_utils1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:09:59 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 10:31:12 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:52:11 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,4 @@ int	print_return_error(char *str, int err_num, int fd)
 {
 	write(fd, str, ft_strlen(str));
 	return (err_num);
-}
-
-int	contains_backslash(const char *str)
-{
-	while (*str)
-	{
-		if (*str == '\\')
-			return (1);
-		str++;
-	}
-	return (0);
 }

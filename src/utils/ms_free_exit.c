@@ -6,35 +6,11 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:14:16 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 15:32:36 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:53:55 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_str(char **str)
-{
-	if (*str)
-		free(*str);
-	*str = NULL;
-}
-
-void	free_strarray(char **arr)
-{
-	int	i;
-
-	if (arr)
-	{
-		i = 0;
-		while (arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
-		arr = NULL;
-	}
-}
 
 void	free_process(t_process	process)
 {
@@ -62,6 +38,23 @@ void	data_free(t_data *data)
 	data = NULL;
 }
 
+static void	free_pipes(t_data *data)
+{
+	int	i;
+
+	if (data->pipe_fd)
+	{
+		i = 0;
+		while (data->pipe_fd[i])
+		{
+			free(data->pipe_fd[i]);
+			i++;
+		}
+		free(data->pipe_fd);
+		data->pipe_fd = NULL;
+	}
+}
+
 void	data_reset(t_data *data)
 {
 	int	i;
@@ -77,17 +70,7 @@ void	data_reset(t_data *data)
 		free(data->processes);
 		data->processes = NULL;
 	}
-	if (data->pipe_fd)
-	{
-		i = 0;
-		while (data->pipe_fd[i])
-		{
-			free(data->pipe_fd[i]);
-			i++;
-		}
-		free(data->pipe_fd);
-		data->pipe_fd = NULL;
-	}
+	free_pipes(data);
 	free_str(&(data->input));
 	free_str(&(data->prompt));
 }

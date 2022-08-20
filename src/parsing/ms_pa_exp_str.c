@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 11:56:03 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:59:15 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,6 @@ static void	copy_without_backslashes(char *str1, char *str2)
 		i1++;
 	}
 	str2[i2] = 0;
-}
-
-static int	expand_tilde(int i, char **expanded, t_process *proc)
-{
-	char	*helper;
-
-	i++;
-	helper = ft_strjoin(*expanded, ms_getenv(proc->data, "HOME"));
-	free(*expanded);
-	*expanded = helper;
-	return (i);
 }
 
 static int	expand_variable(int i, char **expanded, char *str, t_process *proc)

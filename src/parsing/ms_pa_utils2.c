@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 12:01:45 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:59:25 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,15 @@ int	num_quotes_in_env(char *str)
 		i++;
 	}
 	return (num_quotes);
+}
+
+int	expand_tilde(int i, char **expanded, t_process *proc)
+{
+	char	*helper;
+
+	i++;
+	helper = ft_strjoin(*expanded, ms_getenv(proc->data, "HOME"));
+	free(*expanded);
+	*expanded = helper;
+	return (i);
 }

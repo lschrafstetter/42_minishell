@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 10:16:19 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 15:34:22 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/08/20 15:44:25 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 static int	cd_no_params(t_process *proc)
 {
 	if (*ms_getenv(proc->data, "HOME") == 0)
-		return (print_return_error("minishell: cd: HOME not set\n", 1, STDERR_FILENO));
+		return (print_return_error("minishell: cd: \
+				HOME not set\n", 1, STDERR_FILENO));
 	if (chdir(ms_getenv(proc->data, "HOME")))
 	{
-		print_error(ms_getenv(proc->data, "HOME"), "cd", ": No such file or directory");
+		print_error(ms_getenv(proc->data, "HOME"), "cd", \
+					": No such file or directory");
 		return (1);
 	}
 	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));
@@ -33,7 +35,8 @@ int	ms_cd(t_process *proc)
 	if (!proc->cmd[1])
 		return (cd_no_params(proc));
 	if (proc->cmd[2])
-		return (print_return_error("minishell: cd: too many arguments\n", 1, STDERR_FILENO));
+		return (print_return_error("minishell: cd: \
+				too many arguments\n", 1, STDERR_FILENO));
 	if (chdir(proc->cmd[1]))
 	{
 		if (errno == EACCES)
