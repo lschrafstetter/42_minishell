@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:06:36 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 19:37:12 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:53:11 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ static void	processes_exec(t_data *data)
 	i = 0;
 	while (i < data->n_processes)
 	{
-		pid[i] = fork();
-		if (!pid[i])
-			execute_piped_process(&(data->processes[i]));
+		if (data->processes[i].cmd)
+		{
+			pid[i] = fork();
+			if (!pid[i])
+				execute_piped_process(&(data->processes[i]));
+		}
 		i++;
 	}
 	pipes_close(data, -1);

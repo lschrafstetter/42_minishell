@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 19:36:04 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:35:52 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,17 @@ static	int	execute_path(t_process *process)
 	{
 		closedir(temp_dir);
 		print_error(process->cmd[0], NULL, ": Is a directory");
-		return (1);
+		return (126);
 	}
 	if (access(process->cmd[0], F_OK))
 	{
 		print_error(process->cmd[0], NULL, ": No such file or directory");
-		return (1);
+		return (127);
+	}
+	if (access(process->cmd[0], X_OK))
+	{
+		print_error(process->cmd[0], NULL, ": Permission denied");
+		return (126);
 	}
 	if (execve(process->cmd[0], process->cmd, \
 												process->data->env) == -1)
@@ -72,9 +77,7 @@ static int	execute_nonbuiltin(t_process *process)
 		process->path = build_cmd_path(process);
 		if (process->path)
 		{
-			if (execve(process->path, process->cmd, \
-													process->data->env) == -1)
-				perror("Execve:");
+			execve(process->path, process->cmd, process->data->env);
 			return (errno);
 		}
 	}

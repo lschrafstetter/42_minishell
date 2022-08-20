@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 18:33:44 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:06:33 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ typedef struct s_process
 typedef struct s_data
 {
 	t_lst_env			**ls_env;
-	t_process			*processes;
 	char				**env;
 	char				*input;
 	char				*prompt;
 	int					**pipe_fd;
 	int					n_processes;
 	int					exit_code;
+	t_process			*processes;
 }	t_data;
 
 /* INITIALIZATION */

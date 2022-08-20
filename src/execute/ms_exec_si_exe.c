@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 21:20:13 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:36:19 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ char	*build_cmd_path(t_process *process)
 	if (!helper)
 	{
 		print_error(process->cmd[0], NULL, ": command not found");
+		process->data->exit_code = 127;
 		return (NULL);
 	}
 	if (access(helper, X_OK))
 	{
 		print_error(helper, NULL, ": Permission denied");
 		free_str(&helper);
+		process->data->exit_code = 126;
 		return (NULL);
 	}
 	return (helper);
@@ -61,12 +63,20 @@ static void	execute_path(t_data *data, int *pid, int *status)
 	{
 		closedir(temp_dir);
 		print_error(data->processes->cmd[0], NULL, ": is a directory");
+		data->exit_code = 126;
 		return ;
 	}
 	if (access(data->processes->cmd[0], F_OK))
 	{
 		print_error(data->processes->cmd[0], NULL, \
 					": No such file or directory");
+		data->exit_code = 127;
+		return ;
+	}
+	if (access(data->processes->cmd[0], X_OK))
+	{
+		print_error(data->processes->cmd[0], NULL, ": Permission denied");
+		data->exit_code = 126;
 		return ;
 	}
 	*pid = fork();
@@ -75,7 +85,7 @@ static void	execute_path(t_data *data, int *pid, int *status)
 		dup2(data->processes->fdin, STDIN_FILENO);
 		dup2(data->processes->fdout, STDOUT_FILENO);
 		execve(data->processes->cmd[0], data->processes->cmd, data->env);
-		exit(0);
+		exit(errno);
 	}
 	waitpid(*pid, status, 0);
 }
@@ -87,7 +97,9 @@ void	execute_single_nonbuiltin(t_data *data)
 
 	if (ft_strchr(data->processes->cmd[0], '/') \
 		|| !ft_strncmp(data->processes->cmd[0], ".", 2))
+	{
 		execute_path(data, &pid, &status);
+	}
 	else
 	{
 		data->processes[0].path = build_cmd_path(&(data->processes[0]));
