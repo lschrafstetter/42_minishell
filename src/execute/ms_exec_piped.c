@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:06:36 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 15:08:04 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:37:12 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	processes_exec(t_data *data)
 	}
 	pipes_close(data, -1);
 	process_fds_close(data, -1);
+	signal(SIGINT, SIG_IGN);
 	i = 0;
 	while (i < data->n_processes)
 	{
@@ -76,6 +77,7 @@ static void	processes_exec(t_data *data)
 		data->exit_code = status / 256;
 		i++;
 	}
+	signalhandler_init();
 	free(pid);
 }
 

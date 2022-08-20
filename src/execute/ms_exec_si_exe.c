@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 16:58:17 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:20:13 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void	execute_single_nonbuiltin(t_data *data)
 			{
 				dup2(data->processes->fdin, STDIN_FILENO);
 				dup2(data->processes->fdout, STDOUT_FILENO);
-				if (execve(data->processes->path, data->processes->cmd, \
-															data->env) == -1)
-					perror("Execve:");
-				exit(0);
+				execve(data->processes->path, data->processes->cmd, data->env);
+				exit(errno);
 			}
+			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
+			signalhandler_init();
 		}
 	}
 }
