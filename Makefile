@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 16:58:21 by lschrafs          #+#    #+#              #
-#    Updated: 2022/08/19 14:28:34 by lschrafs         ###   ########.fr        #
+#    Updated: 2022/08/20 14:51:40 by dfranke          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS_NAMES	= 	main \
 				$(PARSING)ms_pa_utils1 \
 				$(PARSING)ms_pa_utils2 \
 				$(UTILS)ms_utils \
+				$(UTILS)ms_error_printer \
 				$(UTILS)ms_free_exit \
 				$(UTILS)ms_lst_str1 \
 				$(UTILS)ms_lst_str2 \

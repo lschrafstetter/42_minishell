@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd_echo_unset.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/20 12:09:46 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:24:00 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ms_unset(t_process *proc)
 	i = 1;
 	while (proc->cmd[i])
 	{
-		if (is_id_invalid(proc->cmd[i]))
+		if (is_id_invalid(proc->cmd[i], "unset"))
 			err = 1;
 		else
 			delete_env(proc, proc->cmd[i]);

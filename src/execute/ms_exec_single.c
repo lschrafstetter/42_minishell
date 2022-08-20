@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_single.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 19:55:36 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:58:05 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,12 @@ char	*build_cmd_path(t_process *process)
 	free_strarray(paths);
 	if (!helper)
 	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(process->cmd[0], 2);
-		ft_putendl_fd(": command not found", 2);
+		print_error(process->cmd[0], NULL, ": command not found");
 		return (NULL);
 	}
 	if (access(helper, X_OK))
 	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(helper, 2);
-		ft_putendl_fd(": Permission denied", 2);
+		print_error(helper, NULL, ": Permission denied");
 		free_str(&helper);
 		return (NULL);
 	}
@@ -96,16 +92,12 @@ static void	execute_nonbuiltin(t_data *data)
 		if (temp_dir)
 		{
 			closedir(temp_dir);
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(data->processes->cmd[0], 2);
-			ft_putstr_fd(": is a directory\n", 2);
+			print_error(data->processes->cmd[0], NULL, ": is a directory");
 			return ;
 		}
 		if (access(data->processes->cmd[0], F_OK))
 		{
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(data->processes->cmd[0], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
+			print_error(data->processes->cmd[0], NULL, ": No such file or directory");
 			return ;
 		}
 		pid = fork();

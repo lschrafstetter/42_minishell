@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:59:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 12:01:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:23:16 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,9 @@ int			print_return_error(char *str, int err_num, int fd);
 int			env_set_value(t_data *data, char *name, char *value);
 int			num_quotes_in_env(char *str);
 
-int			is_id_invalid(char *str);
+int			is_id_invalid(char *str, char *builtin_name);
 void		sort_new_lst(t_lst_env **new);
 t_lst_env	*ls_exp_new(char *name, char *value);
+void		print_error(char *argument, char *cmd, char *message);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 10:16:19 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 15:40:51 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:34:22 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 static int	cd_no_params(t_process *proc)
 {
 	if (*ms_getenv(proc->data, "HOME") == 0)
-		return (print_return_error("minishell: cd: HOME not set\n", 1, 1));
+		return (print_return_error("minishell: cd: HOME not set\n", 1, STDERR_FILENO));
 	if (chdir(ms_getenv(proc->data, "HOME")))
 	{
-		printf("bash, cd: %s: No such file or directory\n", \
-				ms_getenv(proc->data, "HOME"));
+		print_error(ms_getenv(proc->data, "HOME"), "cd", ": No such file or directory");
 		return (1);
 	}
 	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));
@@ -34,15 +33,13 @@ int	ms_cd(t_process *proc)
 	if (!proc->cmd[1])
 		return (cd_no_params(proc));
 	if (proc->cmd[2])
-		return (print_return_error("minishell: cd: too many arguments\n", 1, 1));
+		return (print_return_error("minishell: cd: too many arguments\n", 1, STDERR_FILENO));
 	if (chdir(proc->cmd[1]))
 	{
 		if (errno == EACCES)
-			printf("minishell: cd: %s: Permission denied\n", \
-				proc->cmd[1]);
+			print_error(proc->cmd[1], "cd", ": Permission denied");
 		else
-			printf("minishell: cd: %s: No such file or directory\n", \
-				proc->cmd[1]);
+			print_error(proc->cmd[1], "cd", ": No such file or directory");
 		return (1);
 	}
 	env_set_value(proc->data, "OLDPWD", ms_getenv(proc->data, "PWD"));

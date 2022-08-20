@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:31:01 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/18 15:29:07 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:24:12 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	env_set_value(t_data *data, char *name, char *value)
 {
 	t_lst_env	*temp;
 
-	if (is_id_invalid(name))
+	if (is_id_invalid(name, "export"))
 		return (1);
 	temp = ls_env_contains_name(data->ls_env, name);
 	if (temp)

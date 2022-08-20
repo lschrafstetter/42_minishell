@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtins_utils1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 14:14:53 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/13 10:43:46 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:26:57 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	sort_new_lst(t_lst_env **new)
 	}
 }
 
-int	is_id_invalid(char *str)
+int	is_id_invalid(char *str, char *builtin_name)
 {
 	int		i;
 
@@ -77,9 +77,7 @@ int	is_id_invalid(char *str)
 		i++;
 	else
 	{
-		ft_putstr_fd("minishell: export: `", 2);
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd("': not a valid identifier", 2);
+		print_error(str, builtin_name, ": not a valid identifier");
 		return (1);
 	}
 	while (str[i])
@@ -87,9 +85,7 @@ int	is_id_invalid(char *str)
 		if (!ft_isalnum(str[i]) || str[i] == '_' \
 					|| str[i] == '=')
 		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(str, 2);
-			ft_putendl_fd("': not a valid identifier", 2);
+			print_error(str, builtin_name, ": not a valid identifier");
 			return (1);
 		}
 		i++;

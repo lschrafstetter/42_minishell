@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_pi_exe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 19:54:42 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:04:47 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,12 @@ static int	execute_nonbuiltin(t_process *process)
 		if (temp_dir)
 		{
 			closedir(temp_dir);
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(process->cmd[0], 2);
-			ft_putstr_fd(": is a directory\n", 2);
+			print_error(process->cmd[0], NULL, ": Is a directory");
 			return (1);
 		}
 		if (access(process->cmd[0], F_OK))
 		{
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(process->cmd[0], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
+			print_error(process->cmd[0], NULL, ": No such file or directory");
 			return (1);
 		}
 		if (execve(process->cmd[0], process->cmd, \

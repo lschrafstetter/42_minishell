@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 15:39:13 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:14:44 by dfranke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 {
 	if (access(redirection->file, F_OK))
 	{
-		printf("Minishell: %s: No such file or directory\n", \
-														redirection->file);
+		print_error(redirection->file, NULL, ": No such file or directory");
 		return (1);
 	}
 	if (access(redirection->file, R_OK))
 	{
-		printf("Minishell: %s: Permission denied\n", redirection->file);
+		print_error(redirection->file, NULL, ": Permission denied");
 		return (1);
 	}
 	if (process->fdin != 0 \
@@ -41,7 +40,7 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 	if (!access(redirection->file, F_OK) && \
 		access(redirection->file, W_OK))
 	{
-		printf("Minishell: %s: Permission denied\n", redirection->file);
+		print_error(redirection->file, NULL, ": Permission denied");
 		return (1);
 	}
 	if (process->fdout != 1 \
@@ -142,7 +141,7 @@ int	set_redirections(t_process *proc)
 	{
 		if (temp->ambiguous_redirect)
 		{
-			ft_putstr_fd("Ambiguous redirect!\n", 2);
+			print_error(temp->file, NULL, ": Ambiguous redirect!");
 			temp = temp->next;
 			continue ;
 		}
