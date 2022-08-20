@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 16:58:51 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 16:27:47 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 10:29:23 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	inputloop(t_data *data)
 		if (not_closed(data->input))
 		{
 			printf("Quotes not closed!\n");
+			data_reset(data);
+			continue ;
+		}
+		if (contains_backslash(data->input))
+		{
+			printf("No backslash allowed!\n");
 			data_reset(data);
 			continue ;
 		}

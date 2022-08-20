@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:52:25 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 18:53:55 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:08:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	set_underscore(t_data *data)
 	while (data->processes[0].cmd[i])
 	{
 		if (!*(data->processes[0].cmd + i + 1))
-			env_set_value(data, "_", data->processes[0].cmd[i + 1]);
+			env_set_value(data, "_", data->processes[0].cmd[i]);
 		i++;
 	}
 }

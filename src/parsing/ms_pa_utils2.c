@@ -6,13 +6,13 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/13 10:58:21 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:01:45 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	n_backslashes_before_quotes(char *str)
+static int	n_bs_before_quotes(char *str)
 {
 	int	i;
 
@@ -26,14 +26,14 @@ static int	n_backslashes_before_quotes(char *str)
 	return (i);
 }
 
-void	remove_backslashes_before_quotes(char **str)
+void	remove_bs_before_quotes(char **str)
 {
 	char	*temp;
 	int		i1;
 	int		i2;
 	int		str_new_len;
 
-	str_new_len = ft_strlen(*str) + n_backslashes_before_quotes(*str);
+	str_new_len = ft_strlen(*str) + n_bs_before_quotes(*str);
 	temp = ft_calloc(str_new_len + 1, 1);
 	i1 = 0;
 	i2 = 0;

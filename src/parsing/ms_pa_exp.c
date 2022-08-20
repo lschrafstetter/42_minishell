@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:01:04 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/19 18:52:28 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:02:11 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	expand_sort_red(t_process *process)
 		if (contains_relevant_whitespace(temp->file))
 			temp->ambiguous_redirect = 1;
 		str_remove_quotes(&(temp->file));
-		remove_backslashes_before_quotes(&(temp->file));
+		remove_bs_before_quotes(&(temp->file));
 		temp = temp->next;
 	}
 }
@@ -61,7 +61,7 @@ static void	expand_sort_cmd(t_process *process)
 		if (contains_relevant_whitespace(temp->str))
 			expand_list_by_whitespace(&temp);
 		str_remove_quotes(&(temp->str));
-		remove_backslashes_before_quotes(&(temp->str));
+		remove_bs_before_quotes(&(temp->str));
 		temp = temp->next;
 	}
 	process->cmd = lst_str_to_strarray(process->ls_cmd);

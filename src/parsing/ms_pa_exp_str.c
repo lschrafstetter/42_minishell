@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:49 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/16 13:45:43 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 11:56:03 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	index_next_dollar_or_end(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && !sq_open)
+		if ((str[i] == '$' && !sq_open) || (str[i] == '~' && !sq_open))
 			return (i);
 		if (str[i] == '\'' && !dq_open)
 			sq_open = 1 - sq_open;
@@ -65,12 +65,25 @@ static void	copy_without_backslashes(char *str1, char *str2)
 	str2[i2] = 0;
 }
 
-static int	expand_dollar(int i, char **expanded, char *str, t_process *proc)
+static int	expand_tilde(int i, char **expanded, t_process *proc)
+{
+	char	*helper;
+
+	i++;
+	helper = ft_strjoin(*expanded, ms_getenv(proc->data, "HOME"));
+	free(*expanded);
+	*expanded = helper;
+	return (i);
+}
+
+static int	expand_variable(int i, char **expanded, char *str, t_process *proc)
 {
 	char	*helper[3];
 	int		index;
 	int		n_quotes;
 
+	if (str[i] == '~')
+		return (expand_tilde(i, expanded, proc));
 	i++;
 	index = len_to_endofvar(&(str[i]));
 	helper[0] = ft_calloc(index + 1, 1);
@@ -114,8 +127,8 @@ void	str_expand(char **str, t_process *process)
 			expanded = helper[1];
 			i += index;
 		}
-		else if ((*str)[i] == '$')
-			i = expand_dollar(i, &expanded, *str, process);
+		else if ((*str)[i] == '$' || (*str)[i] == '~')
+			i = expand_variable(i, &expanded, *str, process);
 	}
 	free(*str);
 	*str = expanded;

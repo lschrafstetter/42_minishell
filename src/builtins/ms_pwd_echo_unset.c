@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/18 14:39:38 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:09:46 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,20 @@ static void	delete_env(t_process *proc, char *str)
 int	ms_unset(t_process *proc)
 {
 	int	i;
+	int	err;
 
+	err = 0;
 	i = 1;
 	while (proc->cmd[i])
 	{
-		delete_env(proc, proc->cmd[i]);
+		if (is_id_invalid(proc->cmd[i]))
+			err = 1;
+		else
+			delete_env(proc, proc->cmd[i]);
 		i++;
 	}
 	if (proc->data->env)
 		free_strarray(proc->data->env);
 	proc->data->env = lst_env_to_strarray(proc->data->ls_env);
-	return (0);
+	return (err);
 }
