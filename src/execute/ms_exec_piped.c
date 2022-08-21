@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:06:36 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/21 10:15:37 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 20:43:41 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,29 @@ static int	redirects_set(t_data *data)
 	return (0);
 }
 
+static void	wait_for_children(t_data *data, int *pid)
+{
+	int	status;
+	int	i;
+
+	signal(SIGINT, SIG_IGN);
+	i = 0;
+	while (i < data->n_processes)
+	{
+		waitpid(pid[i], &status, 0);
+		if (WIFSIGNALED(status))
+			data->exit_code = 130;
+		else
+			data->exit_code = status / 256;
+		i++;
+	}
+	signalhandler_init();
+}
+
 static void	processes_exec(t_data *data)
 {
 	int	*pid;
 	int	i;
-	int	status;
 
 	pid = ft_calloc(sizeof(int), data->n_processes + 1);
 	i = 0;
@@ -72,18 +90,7 @@ static void	processes_exec(t_data *data)
 	}
 	pipes_close(data, -1);
 	process_fds_close(data, -1);
-	signal(SIGINT, SIG_IGN);
-	i = 0;
-	while (i < data->n_processes)
-	{
-		waitpid(pid[i], &status, 0);
-		if (WIFSIGNALED(status))
-			data->exit_code = 130;
-		else
-			data->exit_code = status / 256;
-		i++;
-	}
-	signalhandler_init();
+	wait_for_children(data, pid);
 	free(pid);
 }
 

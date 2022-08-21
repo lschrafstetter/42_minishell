@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 23:10:03 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:14:32 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,21 @@ char	*build_cmd_path(t_process *process)
 	return (helper);
 }
 
+static void	wait_set_exit(t_data *data, int *status, int pid)
+{
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, status, 0);
+	if (WIFSIGNALED(*status))
+		data->exit_code = 130;
+	else
+		data->exit_code = *status / 256;
+	signalhandler_init();
+}
+
 static void	execute_path(t_data *data, int *pid, int *status)
 {
-	DIR	*temp_dir;
-
-	temp_dir = opendir(data->processes->cmd[0]);
-	if (temp_dir)
-	{
-		closedir(temp_dir);
-		print_error(data->processes->cmd[0], NULL, ": is a directory");
-		data->exit_code = 126;
+	if (check_acces_set_exitcode(data))
 		return ;
-	}
-	if (access(data->processes->cmd[0], F_OK))
-	{
-		print_error(data->processes->cmd[0], NULL, \
-					": No such file or directory");
-		data->exit_code = 127;
-		return ;
-	}
-	if (access(data->processes->cmd[0], X_OK))
-	{
-		print_error(data->processes->cmd[0], NULL, ": Permission denied");
-		data->exit_code = 126;
-		return ;
-	}
 	*pid = fork();
 	if (!(*pid))
 	{
@@ -87,13 +77,7 @@ static void	execute_path(t_data *data, int *pid, int *status)
 		execve(data->processes->cmd[0], data->processes->cmd, data->env);
 		exit(errno);
 	}
-	signal(SIGINT, SIG_IGN);
-	waitpid(*pid, status, 0);
-	if (WIFSIGNALED(*status))
-		data->exit_code = 130;
-	else
-		data->exit_code = *status / 256;
-	signalhandler_init();
+	wait_set_exit(data, status, *pid);
 }
 
 void	execute_single_nonbuiltin(t_data *data)
@@ -102,10 +86,8 @@ void	execute_single_nonbuiltin(t_data *data)
 	int	status;
 
 	if (ft_strchr(data->processes->cmd[0], '/') \
-		|| !ft_strncmp(data->processes->cmd[0], ".", 2))
-	{
+			|| !ft_strncmp(data->processes->cmd[0], ".", 2))
 		execute_path(data, &pid, &status);
-	}
 	else
 	{
 		data->processes[0].path = build_cmd_path(&(data->processes[0]));
@@ -119,13 +101,7 @@ void	execute_single_nonbuiltin(t_data *data)
 				execve(data->processes->path, data->processes->cmd, data->env);
 				exit(errno);
 			}
-			signal(SIGINT, SIG_IGN);
-			waitpid(pid, &status, 0);
-			if (WIFSIGNALED(status))
-				data->exit_code = 130;
-			else
-				data->exit_code = status / 256;
-			signalhandler_init();
+			wait_set_exit(data, &status, pid);
 		}
 	}
 }
