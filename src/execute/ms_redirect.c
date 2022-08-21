@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 23:41:59 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 09:24:56 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 {
 	int	temp_fd;
+	DIR	*temp_dir;
 
 	if (!access(redirection->file, F_OK) && \
 		access(redirection->file, W_OK))
@@ -52,6 +53,13 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 	else
 		temp_fd = open(redirection->file, \
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	temp_dir = opendir(redirection->file);
+	if (temp_dir)
+	{
+		closedir(temp_dir);
+		print_error(redirection->file, NULL, ": Is a directory");
+		return (1);
+	}
 	if (temp_fd == -1)
 		return (1);
 	process->fdout = temp_fd;
@@ -76,6 +84,7 @@ int	set_redirections(t_process *proc)
 			|| (!ft_strncmp(temp->red, ">", 2) && set_out_red(proc, temp, 0)) \
 			|| (!ft_strncmp(temp->red, ">>", 3) && set_out_red(proc, temp, 1)))
 		{
+			proc->data->exit_code = 1;
 			proc->failed_red = 1;
 			return (0);
 		}
