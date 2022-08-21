@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:06:36 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/21 09:33:02 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:15:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	processes_exec(t_data *data)
 	i = 0;
 	while (i < data->n_processes)
 	{
-		if (data->processes[i].cmd)
+		if (data->processes[i].cmd && !(data->processes[i].failed_red))
 		{
 			pid[i] = fork();
 			if (!pid[i])

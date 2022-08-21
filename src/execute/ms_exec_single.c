@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:05:17 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 23:42:30 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 09:51:21 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	check_builtins(t_data *data)
 	else if (!ft_strncmp(data->processes->cmd[0], "echo", 5))
 		temp_exit_code = ms_echo(data->processes);
 	else if (!ft_strncmp(data->processes->cmd[0], "env", 4))
+	{
+		env_set_value(data, "_", data->processes->cmd[0]);
 		temp_exit_code = ms_env(data->processes);
+	}
 	else if (!ft_strncmp(data->processes->cmd[0], "cd", 3))
 		temp_exit_code = ms_cd(data->processes);
 	else if (!ft_strncmp(data->processes->cmd[0], "export", 7))

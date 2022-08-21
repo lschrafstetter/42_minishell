@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 21:35:52 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:03:21 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	check_builtins(t_process *process)
 	{
 		process_fds_close(process->data, -1);
 		pipes_close(process->data, -1);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		return (ret);
 	}
 	return (-1);
@@ -92,6 +94,10 @@ void	execute_piped_process(t_process *process)
 	process_fds_close(process->data, process->index);
 	dup2(process->fdin, STDIN_FILENO);
 	dup2(process->fdout, STDOUT_FILENO);
+	if (process->fdin)
+		close(process->fdin);
+	if (process->fdout != 1)
+		close(process->fdout);
 	ret = check_builtins(process);
 	if (ret != -1)
 		exit(ret);
