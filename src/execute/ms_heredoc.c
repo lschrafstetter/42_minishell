@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:57:57 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 16:14:09 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 11:24:25 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	set_here_doc(t_process *process, t_lst_red *redirection)
 	if (process->fdin != 0 \
 		|| (process->data->n_processes > 1 && process->fdin != 0))
 		close(process->fdin);
+	if (process->data->n_processes > 1 && process->index > 0)
+		process->data->pipe_fd[process->index - 1][0] = fd[0];
 	process->fdin = fd[0];
 	return (0);
 }

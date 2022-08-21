@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/21 10:03:21 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:35:47 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static int	check_builtins(t_process *process)
 	{
 		process_fds_close(process->data, -1);
 		pipes_close(process->data, -1);
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
 		return (ret);
 	}
 	return (-1);
@@ -71,9 +69,16 @@ static	int	execute_path(t_process *process)
 
 static int	execute_nonbuiltin(t_process *process)
 {
+	int	temp_exit_code;
+
 	if (ft_strchr(process->cmd[0], '/') \
 		|| !ft_strncmp(process->cmd[0], ".", 2))
-		return (execute_path(process));
+	{
+		temp_exit_code = execute_path(process);
+		pipes_close(process->data, -1);
+		process_fds_close(process->data, -1);
+		return (temp_exit_code);
+	}
 	else
 	{
 		process->path = build_cmd_path(process);
@@ -82,6 +87,8 @@ static int	execute_nonbuiltin(t_process *process)
 			execve(process->path, process->cmd, process->data->env);
 			return (errno);
 		}
+		pipes_close(process->data, -1);
+		process_fds_close(process->data, -1);
 	}
 	return (1);
 }
@@ -94,10 +101,6 @@ void	execute_piped_process(t_process *process)
 	process_fds_close(process->data, process->index);
 	dup2(process->fdin, STDIN_FILENO);
 	dup2(process->fdout, STDOUT_FILENO);
-	if (process->fdin)
-		close(process->fdin);
-	if (process->fdout != 1)
-		close(process->fdout);
 	ret = check_builtins(process);
 	if (ret != -1)
 		exit(ret);

@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:08:31 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/21 10:09:38 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/21 11:24:09 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	set_in_red(t_process *process, t_lst_red *redirection)
 {
+	int	temp_fd;
+
 	if (access(redirection->file, F_OK))
 	{
 		print_error(redirection->file, NULL, ": No such file or directory");
@@ -27,12 +29,12 @@ static int	set_in_red(t_process *process, t_lst_red *redirection)
 	if (process->fdin != 0 \
 		|| (process->data->n_processes > 1 && process->fdin != 0))
 		close(process->fdin);
-	process->fdin = open(redirection->file, O_RDONLY);
-	if (process->fdin == -1)
-	{
-		printf("Error in-red\n");
+	temp_fd = open(redirection->file, O_RDONLY);
+	if (temp_fd == -1)
 		return (1);
-	}
+	if (process->data->n_processes > 1 && process->index > 0)
+		process->data->pipe_fd[process->index - 1][0] = temp_fd;
+	process->fdin = temp_fd;
 	return (0);
 }
 
@@ -65,6 +67,8 @@ static int	set_out_red(t_process *process, t_lst_red *redirection, int append)
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (temp_fd == -1)
 		return (1);
+	if (process->data->n_processes > 1 && process->index > 0)
+		process->data->pipe_fd[process->index - 1][0] = temp_fd;
 	process->fdout = temp_fd;
 	return (0);
 }
