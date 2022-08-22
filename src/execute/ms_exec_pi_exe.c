@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/21 10:35:47 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:42:24 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static int	check_builtins(t_process *process)
 	{
 		process_fds_close(process->data, -1);
 		pipes_close(process->data, -1);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
 		return (ret);
 	}
 	return (-1);
