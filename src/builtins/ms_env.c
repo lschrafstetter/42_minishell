@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 18:57:09 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/17 09:32:46 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:28:03 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ char	*ms_getenv(t_data *data, char *name)
 	while (temp)
 	{
 		if (ft_strncmp(temp->name, name, ft_strlen(name) + 1) == 0)
-			return (temp->value);
+		{
+			if (temp->value)
+				return (temp->value);
+			return ("");
+		}
 		temp = temp->next;
 	}
 	return ("");
