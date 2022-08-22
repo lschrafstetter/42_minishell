@@ -6,11 +6,18 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 10:07:48 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/22 10:42:24 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:57:13 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	close_all_std_fds(void)
+{
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+}
 
 static int	check_builtins(t_process *process)
 {
@@ -35,9 +42,7 @@ static int	check_builtins(t_process *process)
 	{
 		process_fds_close(process->data, -1);
 		pipes_close(process->data, -1);
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
-		close(STDERR_FILENO);
+		close_all_std_fds();
 		return (ret);
 	}
 	return (-1);

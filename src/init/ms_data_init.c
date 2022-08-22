@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 11:12:35 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/18 13:18:29 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:54:33 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,42 @@ char	*get_env_name(char *env_line)
 	return (str);
 }
 
-int	env_init(char **envp, t_data *data)
+static void	add_env(char **envp, t_data *data)
 {
 	char	*tmp_name;
+	char	*tmp_value;
+	int		sh_lvl;
+	int		err;
 
+	tmp_name = get_env_name(*envp);
+	if (!ft_strncmp(tmp_name, "SHLVL", 6))
+	{
+		err = 0;
+		sh_lvl = ft_atoi_e(getenv(tmp_name), &err);
+		if (sh_lvl < 0 || err == 1)
+			sh_lvl = 0;
+		tmp_value = ft_itoa(sh_lvl + 1);
+		if (tmp_value)
+		{
+			ls_env_addback(data->ls_env, (ls_env_new(tmp_name, tmp_value)));
+			free (tmp_value);
+		}
+	}
+	else
+		ls_env_addback(data->ls_env, (ls_env_new(tmp_name, getenv(tmp_name))));
+	if (tmp_name)
+		free(tmp_name);
+}
+
+int	env_init(char **envp, t_data *data)
+{
 	data->ls_env = malloc(sizeof(t_lst_env **));
 	if (!(data->ls_env))
 		return (1);
 	*(data->ls_env) = NULL;
 	while (*envp)
 	{
-		tmp_name = get_env_name(*envp);
-		ls_env_addback(data->ls_env, (ls_env_new(tmp_name, getenv(tmp_name))));
-		if (tmp_name)
-			free(tmp_name);
+		add_env(envp, data);
 		envp++;
 	}
 	env_set_value(data, "OLDPWD", NULL);
