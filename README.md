@@ -11,12 +11,12 @@ How to use it (Mac or iOS):
 The subject was to create a mini bash clone with the following features:
 - working history
 - launch an executable (relative/absolute path or via PATH variable)
-- handle ' " ' and ' ' '
+- handles ' " ' and ' ' '
 - redirections ("<", "<<", ">", ">>")
 - pipes (' | ')
-- handle environment variables
-- handle the command "&?"
-- handle SIGINT and SIGQUIT
+- handles environment variables
+- handles the command "&?"
+- handles SIGINT and SIGQUIT
 - the following builtins:
    - echo with option -n
    - cd
