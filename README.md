@@ -12,7 +12,7 @@ The subject was to create a mini bash clone with the following features:
 - working history
 - launch an executable (relative/absolute path or via PATH variable)
 - handle ' " ' and ' ' '
-- redirections (<, <<, >, >>)
+- redirections ("<", "<<", ">", ">>")
 - pipes (' | ')
 - handle environment variables
 - handle the command "&?"
