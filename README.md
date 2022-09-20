@@ -2,6 +2,8 @@
 
 This is the minishell project of the 42 curriculum.
 
+![image](https://user-images.githubusercontent.com/98647720/191199572-97399e01-02a7-4319-a7e4-0249501796c8.png)
+
 How to use it (Mac or iOS):
 - clone the repo
 - if the readline package is not installed: sudo apt-get install libreadline6 libreadline6-dev
