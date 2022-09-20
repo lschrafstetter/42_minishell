@@ -6,7 +6,7 @@
 /*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:47 by lschrafs          #+#    #+#             */
-/*   Updated: 2022/08/20 15:45:09 by lschrafs         ###   ########.fr       */
+/*   Updated: 2022/09/20 09:19:37 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	add_quoted_part(int i, char **cleaned, char *str, char quote)
 	free(*cleaned);
 	free(helper1);
 	*cleaned = helper2;
-	i += len;
+	i += len + 1;
 	return (i);
 }
 

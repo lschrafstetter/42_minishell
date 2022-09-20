@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd_echo_unset.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfranke <dfranke@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: lschrafs <lschrafs@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 09:52:50 by dfranke           #+#    #+#             */
-/*   Updated: 2022/08/20 15:24:00 by dfranke          ###   ########.fr       */
+/*   Updated: 2022/09/20 09:19:00 by lschrafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ms_pwd(t_process *proc)
 {
 	char	*str;
 
-	str = ms_getenv(proc->data, "PWD");
+	str = getcwd(NULL, 0);
 	ft_putendl_fd(str, proc->fdout);
 	return (0);
 }
@@ -58,7 +58,7 @@ static void	delete_env(t_process *proc, char *str)
 	while (temp)
 	{
 		if (!ft_strncmp(temp->name, str, \
-						ft_strlen(str + 1)))
+						ft_strlen(str) + 1))
 		{
 			if (i == 0)
 				*(proc->data->ls_env) = temp->next;
