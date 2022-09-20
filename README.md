@@ -10,7 +10,7 @@ How to use it (Linux or macOS):
 - "make" via the Makefile
 - ./minishell
 
-The subject was to create a mini bash clone with the following features:
+The task was to create a mini bash clone with the following features:
 - working history
 - launch an executable (relative/absolute path or via PATH variable)
 - handles ' " ' and ' ' '
