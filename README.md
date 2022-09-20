@@ -25,4 +25,13 @@ The subject was to create a mini bash clone with the following features:
    - unset (no options)
    - env (no options or arguments)
    - exit (no options)
-   
+
+Disclaimer:
+This project was created as a school project with the strict 42 "Norminette" norm, including: 
+- variable declarations at the beginning of the file
+- no declaration and initialization on the same line
+- only while loops allowed
+- only 25 lines per function
+- only 5 functions per .c file
+- no comments inside of functions
+- more minor things...
